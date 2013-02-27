@@ -1,3 +1,3 @@
 function asd () {
-	alert(123);
+	alert('master');
 }
