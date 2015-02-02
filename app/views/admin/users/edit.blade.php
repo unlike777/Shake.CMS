@@ -24,7 +24,7 @@
 					
 					&nbsp;&nbsp;&nbsp; или &nbsp;&nbsp;&nbsp;
 					
-					{{ link_to_route('usersDefaultAdmin', 'Вернуться назад', Session::get('shake.url.'.$module)) }}
+					{{ link_to_route($module.'DefaultAdmin', 'Вернуться назад', Session::get('shake.url.'.$module)) }}
 				</div>
 			</div>
 	
