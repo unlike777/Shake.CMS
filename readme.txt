@@ -1,9 +1,7 @@
-test test
+Shake.CMS Copyright 2015
 
-function test () {
-	asdasdasd;
+Admin dashboard kit base on laravel 4.2
 
-	return two;
-}
-
-лялялялял тополя
+admin access
+login: test@test.ru 
+password: admins

@@ -1,0 +1,68 @@
+.clear{clear: both;}
+
+.tree .glyphicon{ margin-right: 0.4em; cursor: pointer;}
+.glyphicon--opacity{opacity: 0.3;}
+
+#error{display: none;}
+
+.form-signin{
+	max-width: 300px;
+	padding: 27px 29px;
+	margin: 0 auto 20px;
+	background-color: #fff;
+	border: 1px solid #e5e5e5;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.form-signin-heading{margin-top: 0; margin-bottom: 17px;}
+.form-signin input[type="text"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.navbar-collapse{padding: 0 20px !important;}
+
+body{padding-top: 51px; background-color: #222;}
+.content{margin-left: 225px; background: white; min-height: 500px;}
+.content_inner{padding: 20px; width: 100%; box-sizing: border-box;}
+.sidebar{position: absolute; width: 225px; top: 51px; left: 0; border-radius: 0; font-size: 15px;}
+.sidebar .nav a{color: #999;}
+.sidebar .nav a:hover{color: white; background: #222;}
+.sidebar .nav .active a{background: #080808; color: white;}
+
+.pagination__count{float: right; margin: 20px 0; margin-right: 50px;}
+.pagination__count select{padding: 6px;}
+
+
+.filter{padding: 15px;}
+
+
+.table__bottom{margin-top: -20px;}
+.table thead{background: #fafafa;}
+.table__row_eye{cursor: pointer;}
+
+.dd-right{float: right;}
+
+
+.drop__zone{display: table-cell; vertical-align: middle; text-align: center; font-size: 12px; width: 150px; height: 150px; padding: 20px; border: 1px dashed #CCCCCC; border-radius: 5px; color: #333333;}
+.drop__zone_wr{float: left; margin-top: 20px;}
+.drop__zone--undefined{color: white; border-color: #F86F05; background: #F86F05;}
+.drop__zone--drop{color: #3cce35; border-color: #3cce35;}
+.drop__zone--error{color: red; border-color: red;}
+.drop__zone--hover{background: #CCCCCC; border: 1px dashed #CCCCCC; color: #333333;}
+
+.drop__file_list{margin-left: -20px; margin-top: -20px;}
+.drop__file_item{float: left; font-size: 11px; width: 150px; height: 150px; padding: 20px; border: 1px solid #CCCCCC; border-radius: 5px; color: #333333; margin-top: 20px; margin-left: 20px; position: relative;}
+.drop__file_item_in{display: table-cell; vertical-align: middle; text-align: center; width: 110px; height: 110px; word-break:break-all;}
+.drop__file_item_del{position: absolute; top: 5px; right: 5px; cursor: pointer; opacity: 0.5;}
+.drop__file_item_del:hover{opacity: 1;}

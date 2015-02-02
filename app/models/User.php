@@ -1,0 +1,119 @@
+<?php
+
+use Illuminate\Auth\UserTrait;
+use Illuminate\Auth\UserInterface;
+use Illuminate\Auth\Reminders\RemindableTrait;
+use Illuminate\Auth\Reminders\RemindableInterface;
+
+class User extends ShakeModel implements UserInterface, RemindableInterface {
+
+	use UserTrait, RemindableTrait;
+
+	/**
+	 * The database table used by the model.
+	 *
+	 * @var string
+	 */
+	protected $table = 'users';
+
+	/**
+	 * The attributes excluded from the model's JSON form.
+	 *
+	 * @var array
+	 */
+	protected $hidden = array('password', 'remember_token');
+
+	protected $fillable = array('active', 'email', 'password', 'group');
+
+	protected $rules = array(
+		'active' => 'boolean',
+		'email' => 'required|min:5|email|unique:users,email',
+		'password' => 'min:6',
+	);
+
+	protected $fields = array(
+		'active' => array(
+			'type' => 'bool',
+			'title' => 'Активность',
+			'filter' => 1,
+		),
+		'email' => array(
+			'type' => 'text',
+			'title' => 'Эл. почта',
+			'filter' => 1,
+		),
+		'password' => array(
+			'type' => 'password',
+			'title' => 'Пароль',
+		),
+		'created_at' => array(
+			'type' => 'text',
+			'title' => 'Дата создания',
+		),
+		'group' => array(
+			'type' => 'select',
+			'title' => 'Группа',
+			'filter' => 1,
+			'values' => array(
+				0 => '',
+				1 => 'Администраторы',
+				2 => 'Пользователи',
+			),
+		),
+	);
+
+	/**
+	 * Правила валидации во время авторизации
+	 * @var array
+	 */
+	protected $rulesOnAuth = array(
+		'email' => 'required|min:5|email',
+		'password' => 'required|min:6',
+	);
+	
+	/**
+	 * Для создания и редактирования пользователя используются разные правила
+	 * @param $data
+	 * @return \Illuminate\Validation\Validator
+	 */
+	public function validate($data) {
+		$arr = $this->getAllRules();
+		
+		if (!empty($this->id)) {
+			$arr['email'] = $arr['email'].','.$this->id;
+		} else {
+			$arr['password'] = 'required|min:6';
+		}
+		return Validator::make($data, $arr);
+	}
+	
+	/**
+	 * Валидация во время авторизации
+	 * @param $data
+	 * @return \Illuminate\Validation\Validator
+	 */
+	public function validateOnAuth($data) {
+		return Validator::make($data, $this->rulesOnAuth);
+	}
+
+	/**
+	 * Сохранение хэша пароля
+	 * @param array $attributes
+	 * @return $this|void
+	 */
+	public function fill(array $attributes) {
+		
+		if (isset($attributes['password'])) {
+			$pass = trim($attributes['password']);
+
+			if ($pass == '') {
+				unset($attributes['password']);
+			} else {
+				$attributes['password'] = Hash::make($pass);
+			}
+		}
+		
+		parent::fill($attributes);
+	}
+
+}
