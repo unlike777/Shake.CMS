@@ -25,12 +25,6 @@ class User extends ShakeModel implements UserInterface, RemindableInterface {
 
 	protected $fillable = array('active', 'email', 'password', 'group');
 
-	protected $rules = array(
-		'active' => 'boolean',
-		'email' => 'required|min:5|email|unique:users,email',
-		'password' => 'min:6',
-	);
-
 	protected $fields = array(
 		'active' => array(
 			'type' => 'bool',
@@ -63,37 +57,33 @@ class User extends ShakeModel implements UserInterface, RemindableInterface {
 	);
 
 	/**
-	 * Правила валидации во время авторизации
-	 * @var array
-	 */
-	protected $rulesOnAuth = array(
-		'email' => 'required|min:5|email',
-		'password' => 'required|min:6',
-	);
-	
-	/**
 	 * Для создания и редактирования пользователя используются разные правила
 	 * @param $data
+	 * @param $behavior
 	 * @return \Illuminate\Validation\Validator
 	 */
-	public function validate($data) {
-		$arr = $this->getAllRules();
-		
+	public function validate($data, $behavior = 'default') {
+		$rules = array(
+			'active' => 'boolean',
+			'email' => 'required|min:5|email|unique:users,email',
+			'password' => 'min:6',
+		);
+
 		if (!empty($this->id)) {
-			$arr['email'] = $arr['email'].','.$this->id;
+			$rules['email'] = $rules['email'].','.$this->id;
 		} else {
-			$arr['password'] = 'required|min:6';
+			$rules['password'] = 'required|min:6';
 		}
-		return Validator::make($data, $arr);
-	}
-	
-	/**
-	 * Валидация во время авторизации
-	 * @param $data
-	 * @return \Illuminate\Validation\Validator
-	 */
-	public function validateOnAuth($data) {
-		return Validator::make($data, $this->rulesOnAuth);
+
+		if ($behavior == 'onAuth') {
+			$rules = array(
+				'email' => 'required|min:5|email',
+				'password' => 'required|min:6',
+			);
+		}
+
+
+		return Validator::make($data, $rules);
 	}
 
 	/**

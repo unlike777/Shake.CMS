@@ -10,7 +10,7 @@ class UsersController extends BaseController {
 		
 		if (Input::has('signin')) {
 			$data = Input::only(array('email', 'password'));
-			$validation = User::getModel()->validateOnAuth($data);
+			$validation = User::getModel()->validate($data, 'onAuth');
 
 			if ($validation->fails()) {
 				return Redirect::refresh()

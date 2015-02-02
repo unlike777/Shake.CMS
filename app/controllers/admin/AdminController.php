@@ -16,48 +16,52 @@ class AdminController extends BaseController {
 	public function getModuleName() {
 		return strtolower(get_class($this->model)).'s';
 	}
-	
+
 	public function def() {
 
 		$module = $this->getModuleName();
-		
+
 		$query = Input::query();
-		
+
 		if (!empty($query)) {
 			Session::set('shake.url.'.$module, $query);
 		}
-		
+
 		return View::make('admin.'.$module.'.list')
 			->with(array(
 				'model' => $this->model,
 				'module' => $module,
 			));
 	}
-	
+
 	public function edit($id) {
 
 		$module = $this->getModuleName();
-		
+
 		/**
-		 * @var $obj Eloquent|Page|User
+		 * @var $obj ShakeModel|Page|User
 		 */
-		
+
 		$obj = $this->model->find($id);
-		
+
 		if (!$obj)
 			return Redirect::route($module.'DefaultAdmin', Session::get('shake.url.'.$module))
 				->with('message', array('title' => 'Ошибка', 'text' => 'Объекта с id = '.$id.' не существует'));
-		
+
 		if (!empty($_POST)) {
 
-			$validation = $obj->loadFromPost();
-			
+			$data = $obj->prepareData(Input::all());
+			$validation = $obj->validate($data);
+
 			if ($validation->fails()) {
 				return Redirect::refresh()
 					->with('message', array('title' => 'Ошибка', 'text' => $validation->errors()->first() ))
-					->withInput(Input::all());
+					->withInput(Input::except($obj->getFileFields()));
 			}
-			
+
+			$obj->fill($data);
+			$obj->saveUploadFiles($data);
+
 			if ($obj->save()) {
 				if (Input::has('save')) {
 					return Redirect::route($module.'DefaultAdmin', Session::get('shake.url.'.$module));
@@ -67,10 +71,10 @@ class AdminController extends BaseController {
 			} else {
 				return Redirect::refresh()
 					->with('message', array('title' => 'Ошибка', 'text' => 'Объекта сохранить не удалось'))
-					->withInput(Input::all());
+					->withInput(Input::except($obj->getFileFields()));
 			}
 		}
-		
+
 		return View::make('admin.'.$module.'.edit')
 			->with( array(
 				'item' => $obj,
@@ -98,7 +102,7 @@ class AdminController extends BaseController {
 		return Redirect::route($this->getModuleName().'DefaultAdmin')
 			->with('message', array('title' => 'Ошибка', 'text' => 'Страница не найдена'));
 	}
-	
+
 
 
 	public function delete() {
@@ -115,7 +119,7 @@ class AdminController extends BaseController {
 			if (!($obj = $this->model->find($id)))
 				return Redirect::route($module.'DefaultAdmin', Session::get('shake.url.'.$module))
 					->with('message', array('title' => 'Ошибка', 'text' => 'Объекта с id = '.$id.' не существует'));
-			
+
 			$obj->delete();
 			return Redirect::route($module.'DefaultAdmin', Session::get('shake.url.'.$module));
 		} else if (Request::has('objects')) {
@@ -124,31 +128,35 @@ class AdminController extends BaseController {
 					$obj->delete();
 				}
 			}
-			
+
 			return Response::json(array('error' => 0));
 		}
 	}
 
 	public function create() {
-		
+
 		$module = $this->getModuleName();
-		
+
 		/**
 		 * @var $obj Eloquent|Page|User
 		 */
-		
+
 		$obj = new $this->model;
 
 		if (!empty($_POST)) {
 
-			$validation = $obj->loadFromPost();
+			$data = $obj->prepareData(Input::all());
+			$validation = $obj->validate($data);
 
 			if ($validation->fails()) {
 				return Redirect::refresh()
 					->with('message', array('title' => 'Ошибка', 'text' => $validation->errors()->first() ))
-					->withInput(Input::all());
+					->withInput(Input::except($obj->getFileFields()));
 			}
-			
+
+			$obj->fill($data);
+			$obj->saveUploadFiles($data);
+
 			if ($obj->save()) {
 				if (Input::has('save')) {
 					return Redirect::route($module.'DefaultAdmin', Session::get('shake.url.'.$module));
@@ -158,7 +166,7 @@ class AdminController extends BaseController {
 			} else {
 				return Redirect::refresh()
 					->with('message', array('title' => 'Ошибка', 'text' => 'Объекта сохранить не удалось'))
-					->withInput(Input::all());
+					->withInput(Input::except($obj->getFileFields()));
 			}
 		}
 
@@ -168,22 +176,22 @@ class AdminController extends BaseController {
 				'module' => $module,
 			));
 	}
-	
-	
-	
-	
+
+
+
+
 	public function upload($id) {
 		$file = new StickyFile();
-		
+
 		$parent = $this->model->find($id);
-		
+
 		$input = Input::only(array('file', 'field'));
 		$validation = $file->validate($input);
 		if ($parent && $validation->passes()) {
 			$file->field = Input::get('field');
 			$file->saveUploadFiles($input);
 			if ($file->save()) {
-				$parent->files()->save($file);
+				$parent->morphMany('StickyFile', 'parent')->save($file);
 				return Response::json(array('error' => 0, 'data' => $file->file));
 			}
 		}
@@ -192,7 +200,7 @@ class AdminController extends BaseController {
 	}
 
 	public function upload_delete() {
-		
+
 		if (Input::has('id')) {
 			if ($file = StickyFile::find(Input::get('id'))) {
 				$file->delete();
@@ -201,5 +209,5 @@ class AdminController extends BaseController {
 
 		return Response::json(array('error' => 0));
 	}
-	
+
 }

@@ -3,13 +3,10 @@
 class ShakeModel extends Eloquent {
 	
 	use ErrorsTrait;
-	
+
 	protected $fillable = array(); 			//поля которые редактируются через форму
 	protected $attributes = array(); 		//атрибуты по умолчанию при создании
-	
-	protected $rules = array(); 			//правила валидации для полей
-	protected $file_rules = array(); 		//правила валидации для файловых полей
-	
+
 	protected $fields = array(); 			//поля выводимые в форме в админке
 
 	protected $ajax_files = array();		//поля ajax файлового загрузчика
@@ -20,28 +17,29 @@ class ShakeModel extends Eloquent {
 	 */
 	public function saveUploadFiles($input) {
 		foreach ($input as $key => $value) {
-			if (array_key_exists($key, $this->file_rules)) {
+			if (in_array($key, $this->getFileFields())) {
 				if (Input::hasFile($key)) {
-					$file = Input::file('file');
+					$file = Input::file($key);
 
 					$ext = $file->getClientOriginalExtension();
 					$name = $file->getClientOriginalName();
 					$name = str_replace('.'.$ext, '', $name);
-					
+
 					$type = $file->getMimeType();
 					$type = explode('/', $type);
-					
+
 					$type = ($type[0] == 'image') ? 'images' : 'files';
 
-					$destination = '/upload/'.$type.'/';
-					
+					$destination = '/upload/'.$type.'/'.strtolower(get_class($this)).'/'.date('Y_m').'/';
+
 					$new_name = $name.'.'.$ext;
+
 					$i = 0;
 					while (file_exists(public_path().$destination.$new_name)) {
 						$i++;
 						$new_name = $name.'_'.$i.'.'.$ext;
 					}
-					
+
 					$file->move(public_path().$destination, $new_name);
 					$this->{$key} = $destination.$new_name;
 				}
@@ -52,23 +50,30 @@ class ShakeModel extends Eloquent {
 	/**
 	 * Валидация модели,
 	 * метод не статичный потому что в зависимости от состояния модели (создание/изменение) правила могут измениться (например в user'ах)
-	 * 
-	 * @param $data
+	 *
+	 * @param $data - входящие данные
+	 * @param $behavior - тип правил которые нужно применить
 	 * @return \Illuminate\Validation\Validator
 	 */
-	public function validate($data) {
-		$rules = $this->getAllRules();
+	public function validate($data, $behavior = 'default') {
+		$rules = array();
 		return Validator::make($data, $rules);
 	}
 
 	/**
-	 * Получаем список всех правил валидации (стандартные + файловые)
+	 * Вернет все файловые поля
 	 * @return array
 	 */
-	public function getAllRules() {
-		return array_merge($this->rules, $this->file_rules);
+	public function getFileFields() {
+		$tmp = array();
+		foreach ($this->fields as $key => $item) {
+			if (isset($item['type']) && ($item['type'] == 'file')) {
+				$tmp[] = $key;
+			}
+		}
+		return $tmp;
 	}
-
+	
 	/**
 	 * Вернет все поля формирующие форму редактирования
 	 * @return array
@@ -104,8 +109,8 @@ class ShakeModel extends Eloquent {
 	 * @param $data
 	 * @return mixed
 	 */
-	public function transformData($data) {
-		
+	public function prepareData($data) {
+
 		if (isset($data['slug'])) {
 			$slug = $data['slug'];
 			if ($data['slug'] == '') {
@@ -113,32 +118,11 @@ class ShakeModel extends Eloquent {
 					$slug = $data['title'];
 				}
 			}
-			
+
 			$data['slug'] = Slug::make($slug);
 		}
-		
+
 		return $data;
-	}
-	
-	/**
-	 * Проверяет и присваивает данные в модель пришедшии из формы
-	 * Возвращает объект валидации
-	 * @return \Illuminate\Validation\Validator
-	 */
-	public function loadFromPost() {
-		$fields = $this->getFillable();
-		$data = Input::only($fields);
-		
-		$data = $this->transformData($data);
-
-		$validation = $this->validate($data);
-
-		if ($validation->passes()) {
-			$this->fill($data);
-			$this->saveUploadFiles($data);
-		}
-		
-		return $validation;
 	}
 	
 	/**
@@ -172,5 +156,14 @@ class ShakeModel extends Eloquent {
 		
 		return parent::delete();
 	}
+
+	/**
+	 * @param array $options
+	 * @return bool
+	 */
+//	public function save(array $options = array()) {
+//		
+//		return parent::save($options);
+//	}
 	
 }

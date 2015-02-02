@@ -8,18 +8,6 @@ class Page extends ShakeModel {
 		'page_id' => 0,
 		'active' => 1,
 	);
-
-	protected $rules = array(
-		'slug' => 'required|alpha_dash|between:2,255|unique:pages,slug',
-		'title' => 'required|min:2',
-		'content' => 'required|min:5',
-		'active' => 'boolean',
-		'template' => 'required',
-	);
-
-	protected $file_rules = array(
-		'file' => 'max:1048576',
-	);
 	
 	protected $fields = array(
 		'title' => array(
@@ -57,19 +45,52 @@ class Page extends ShakeModel {
 		'test',
 	);
 
+
+	public function save(array $options = array()) {
+
+		if ($this->is_home == 1) {
+			$data = Page::where('is_home', '=', 1)->get();
+
+			foreach ($data as $item) {
+				$item->is_home = 0;
+				$item->save();
+			}
+		}
+
+		return parent::save($options);
+	}
+	
 	/**
-	 * Для создания и редактирования страниц используются разные правила
 	 * @param $data
+	 * @param $behavior
 	 * @return \Illuminate\Validation\Validator
 	 */
-	public function validate($data) {
-		$arr = $this->getAllRules();
+	public function validate($data, $behavior = 'default') {
+		$rules = array(
+			'title' => 'required|min:2',
+			'slug' => 'required|alpha_dash|between:2,255|unique:pages,slug',
+			'content' => '',
+			'active' => 'boolean',
+			'is_home' => 'boolean',
+			'template' => 'required',
+			'file' => 'max:'.(1024*5),
+		);
 
 		if (!empty($this->id)) {
-			$arr['slug'] = $arr['slug'].','.$this->id;
+			$rules['slug'] = $rules['slug'].','.$this->id;
 		}
-		
-		return Validator::make($data, $arr);
+
+		return Validator::make($data, $rules);
+	}
+
+	
+	public function url() {
+
+		if ($this->is_home) {
+			return '/';
+		}
+
+		return '/pages/'.$this->slug;
 	}
 	
 	
@@ -153,10 +174,4 @@ class Page extends ShakeModel {
 		
 		return $this;
 	}
-	
-	
-	
-	public function url() {
-		return '/pages/'.$this->slug;
-	} 
 }
