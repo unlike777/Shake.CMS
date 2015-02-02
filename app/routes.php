@@ -51,12 +51,12 @@ Route::group(array('prefix'=>'admin', 'before' => 'auth'), function()
 		array('as'=>'pagesCreateAdmin', 'uses'=>'PagesAdminController@create'));
 	Route::any('/pages/active',
 		array('as'=>'pagesActiveAdmin', 'uses'=>'PagesAdminController@active'));
-//	Route::any('/pages/tree',
-//		array('as'=>'pagesTreeAdmin', 'uses'=>'PagesAdminController@tree'));
 	Route::any('/pages/position',
 		array('as'=>'pagesPositionAdmin', 'uses'=>'PagesAdminController@position'));
 	Route::any('/pages/delete',
 		array('as'=>'pagesDeleteAdmin', 'uses'=>'PagesAdminController@delete'));
+//	Route::any('/pages/tree',
+//		array('as'=>'pagesTreeAdmin', 'uses'=>'PagesAdminController@tree'));
 	
 	// множественное прикрепление файлов
 	Route::any('/pages/upload/{id}',
@@ -68,17 +68,23 @@ Route::group(array('prefix'=>'admin', 'before' => 'auth'), function()
 		array('as'=>'pagesTestAdmin', 'uses'=>'PagesAdminController@test'));
 
 	
-	//users
-	Route::any('/users',
-		array('as'=>'usersDefaultAdmin', 'uses'=>'UsersAdminController@def'));
-	Route::any('/users/edit/{id}',
-		array('as'=>'usersEditAdmin', 'uses'=>'UsersAdminController@edit'));
-	Route::any('/users/create',
-		array('as'=>'usersCreateAdmin', 'uses'=>'UsersAdminController@create'));
-	Route::any('/users/delete',
-		array('as'=>'usersDeleteAdmin', 'uses'=>'UsersAdminController@delete'));
-	Route::any('/users/active',
-		array('as'=>'usersActiveAdmin', 'uses'=>'UsersAdminController@active'));
+	
+	$arr = array('users');
+	
+	foreach ($arr as $module) {
+		Route::any('/'.$module,
+			array('as'=>$module.'DefaultAdmin', 'uses'=>ucfirst($module).'AdminController@def'));
+		Route::any('/'.$module.'/edit/{id}',
+			array('as'=>$module.'EditAdmin',    'uses'=>ucfirst($module).'AdminController@edit'));
+		Route::any('/'.$module.'/create',
+			array('as'=>$module.'CreateAdmin',  'uses'=>ucfirst($module).'AdminController@create'));
+		Route::any('/'.$module.'/delete',
+			array('as'=>$module.'DeleteAdmin',  'uses'=>ucfirst($module).'AdminController@delete'));
+		Route::any('/'.$module.'/active',
+			array('as'=>$module.'ActiveAdmin',  'uses'=>ucfirst($module).'AdminController@active'));
+	}
+
+	
 });
 
 
