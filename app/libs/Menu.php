@@ -26,7 +26,7 @@ class Menu {
 		if ($obj instanceof Eloquent) {
 			if (!empty($obj->id)) {
 				$class = self::getClass($obj);
-				self::$active[$class] = $obj->id;
+				self::$active[$class][] = $obj->id;
 			}
 		}
 	}
