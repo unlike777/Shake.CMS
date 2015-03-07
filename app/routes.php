@@ -27,8 +27,8 @@
 //
 //	$query = str_replace(array('%', '?'), array('%%', '%s'), $query);
 //	$query = vsprintf($query, $bindings);
-//	
-//	pr($query.' '.$time);
+//
+//	SqlDebug::add($query, $time/1000);
 //});
 
 //if (isset($_SERVER['HTTP_REFERER']))
