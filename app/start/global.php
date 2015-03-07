@@ -43,6 +43,28 @@ function del_from_query($arr) {
 	return http_build_query($tmp);
 }
 
+/**
+ * Вернет слово в правильном склонении в зависимости от кол-ва
+ * @param $number
+ * @param $one
+ * @param $two
+ * @param $five
+ * @return mixed
+ */
+function plurar($number, $one, $two , $five) {
+	if (($number - $number % 10 ) % 100 != 10) {
+		if ($number % 10 == 1 ) {
+			$result = $one;
+		} elseif ( ($number % 10 >= 2 ) && ($number % 10 <= 4) ) {
+			$result = $two;
+		} else {
+			$result = $five;
+		}
+	} else {
+		$result = $five;
+	}
+	return $result ;
+}
 
 /*
 |--------------------------------------------------------------------------
