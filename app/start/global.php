@@ -72,6 +72,31 @@ function plurar($number, $one, $two , $five) {
 	return $result ;
 }
 
+/**
+ * Добавит к названиям таблиц префиксы
+ * @param $str
+ * @return mixed
+ */
+function table_prefix($str) {
+
+	preg_match_all('/([A-z0-9]+\.[A-z0-9]+)/ui', $str, $arr);
+	$prefix = DB::getTablePrefix();
+
+	if (isset($arr[0])) {
+		foreach ($arr[0] as $item) {
+			if (!is_numeric($item)) {
+				$tmp = explode('.', trim($item));
+				if (count($tmp) == 2) {
+					$new = '`'.$prefix.$tmp[0].'`.`'.$tmp[1].'`';
+					$str = str_replace($item, $new, $str);
+				}
+			}
+		}
+	}
+
+	return $str;
+}
+
 /*
 |--------------------------------------------------------------------------
 | Register The Laravel Class Loader
