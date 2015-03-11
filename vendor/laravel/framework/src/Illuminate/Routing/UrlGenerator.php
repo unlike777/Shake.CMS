@@ -217,7 +217,7 @@ class UrlGenerator {
 	 *
 	 * @throws \InvalidArgumentException
 	 */
-	public function route($name, $parameters = array(), $absolute = true, $route = null)
+	public function route($name, $parameters = array(), $absolute = false, $route = null)
 	{
 		$route = $route ?: $this->routes->getByName($name);
 
@@ -442,7 +442,7 @@ class UrlGenerator {
 	 * @param  bool    $absolute
 	 * @return string
 	 */
-	public function action($action, $parameters = array(), $absolute = true)
+	public function action($action, $parameters = array(), $absolute = false)
 	{
 		return $this->route($action, $parameters, $absolute, $this->routes->getByAction($action));
 	}

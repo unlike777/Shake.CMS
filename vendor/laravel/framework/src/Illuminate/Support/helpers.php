@@ -697,7 +697,7 @@ if ( ! function_exists('route'))
 	 * @param  \Illuminate\Routing\Route $route
 	 * @return string
 	 */
-	function route($name, $parameters = array(), $absolute = true, $route = null)
+	function route($name, $parameters = array(), $absolute = false, $route = null)
 	{
 		return app('url')->route($name, $parameters, $absolute, $route);
 	}
