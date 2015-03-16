@@ -3,7 +3,7 @@
 function pr($p) 
 {
 	echo "<pre>";
-	if (!is_array($p) || is_bool($p) || (is_string($p) && trim($p) == '') || (!is_array($p) && empty($p)) || !is_object($p)) {
+	if ( (!is_array($p) || is_bool($p) || (is_string($p) && trim($p) == '') || (!is_array($p) && empty($p))) && !is_object($p) ) {
 		var_export($p);
 	} else {
 		print_r($p);
