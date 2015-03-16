@@ -3,11 +3,13 @@
 function pr($p) 
 {
 	echo "<pre>";
-	if ( (!is_array($p) || is_bool($p) || (is_string($p) && trim($p) == '') || (!is_array($p) && empty($p))) && !is_object($p) ) {
-		var_export($p);
-	} else {
-		print_r($p);
-	}
+		if (is_array($p) || is_object($p)) {
+			print_r($p);
+		} else if ( is_bool($p) || empty($p) || (is_string($p) && trim($p) == '') ) {
+			var_export($p);
+		} else {
+			print_r($p);
+		}
 	echo "</pre>";
 }
 
