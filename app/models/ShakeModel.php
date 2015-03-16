@@ -144,7 +144,11 @@ class ShakeModel extends Eloquent {
 		}
 		return array();
 	}
-	
+
+	/**
+	 * @return bool|null
+	 * @throws Exception
+	 */
 	public function delete() {
 		
 		foreach ($this->file_rules as $key => $val) {
@@ -161,9 +165,21 @@ class ShakeModel extends Eloquent {
 	 * @param array $options
 	 * @return bool
 	 */
-//	public function save(array $options = array()) {
-//		
-//		return parent::save($options);
-//	}
+	public function save(array $options = array()) {
+
+		foreach ($this->getFileFields() as $key) {
+
+			$origin = $this->getOriginal($key);
+			if (!empty($origin)) {
+				if ($this->{$key} != $origin) {
+					Resizer::image($origin)->deleteCache();
+					@unlink(public_path().$origin);
+				}
+			}
+
+		}
+
+		return parent::save($options);
+	}
 	
 }
