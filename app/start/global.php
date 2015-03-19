@@ -99,6 +99,16 @@ function table_prefix($str) {
 	return $str;
 }
 
+/**
+ * Выведет информацию о времени существования сайта
+ * @param $start_year
+ * @return string
+ */
+function siteExist($start_year) {
+	return (date('Y') <= $start_year) ? $start_year : $start_year.' — '.date('Y');
+}
+
+
 /*
 |--------------------------------------------------------------------------
 | Register The Laravel Class Loader
