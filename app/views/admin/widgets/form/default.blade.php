@@ -89,13 +89,20 @@
 			</div>
 			
 		@elseif ($field['type'] == 'select')
-        				
-			<div class="col-xs-6">
-				<div class="form-group">
-					{{ Form::label($fname, $field['title']) }}
-					{{ Form::select($fname, $field['values'], null, array('class' => 'form-control')) }}
+
+				<div class="col-xs-6">
+					<div class="form-group">
+						{{ Form::label($fname, $field['title']) }}
+
+						@if (is_array($field['values']))
+							{{ Form::select($fname, $field['values'], null, array('class' => 'form-control')) }}
+						@else
+							<? eval('$arr = '.$field['values']); ?>
+							{{ Form::select($fname, $arr, null, array('class' => 'form-control')) }}
+						@endif
+
+					</div>
 				</div>
-			</div>
 			
 		@endif
 		
