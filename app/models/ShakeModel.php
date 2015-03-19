@@ -15,33 +15,35 @@ class ShakeModel extends Eloquent {
 	 * Проверяет и сохраняет файлы пришедшие через POST
 	 * @param $input
 	 */
-	public function saveUploadFiles($input) {
-		foreach ($input as $key => $value) {
-			if (in_array($key, $this->getFileFields())) {
-				if (Input::hasFile($key)) {
-					$file = Input::file($key);
+	public function saveUploadFiles() {
+		foreach ($this->getFileFields() as $key) {
+			if (Input::hasFile($key)) {
+				$file = Input::file($key);
 
-					$ext = $file->getClientOriginalExtension();
-					$name = $file->getClientOriginalName();
-					$name = str_replace('.'.$ext, '', $name);
+				$ext = $file->getClientOriginalExtension();
+				$name = $file->getClientOriginalName();
+				$name = str_replace('.'.$ext, '', $name);
 
-					$type = $file->getMimeType();
-					$type = explode('/', $type);
+				$type = $file->getMimeType();
+				$type = explode('/', $type);
 
-					$type = ($type[0] == 'image') ? 'images' : 'files';
+				$type = ($type[0] == 'image') ? 'images' : 'files';
 
-					$destination = '/upload/'.$type.'/'.strtolower(get_class($this)).'/'.date('Y_m').'/';
+				$destination = '/upload/'.$type.'/'.strtolower(get_class($this)).'/'.date('Y_m').'/';
 
-					$new_name = $name.'.'.$ext;
+				$new_name = $name.'.'.$ext;
+				
+				$i = 0;
+				while (file_exists(public_path().$destination.$new_name)) {
+					$i++;
+					$new_name = $name.'_'.$i.'.'.$ext;
+				}
 
-					$i = 0;
-					while (file_exists(public_path().$destination.$new_name)) {
-						$i++;
-						$new_name = $name.'_'.$i.'.'.$ext;
-					}
-
-					$file->move(public_path().$destination, $new_name);
-					$this->{$key} = $destination.$new_name;
+				$file->move(public_path().$destination, $new_name);
+				$this->{$key} = $destination.$new_name;
+			} else {
+				if (Input::has($key.'_del')) {
+					$this->{$key} = '';
 				}
 			}
 		}
