@@ -11,6 +11,15 @@
 					{{ Form::text($fname, null, array('class' => 'form-control')) }}
 				</div>
 			</div>
+
+		@elseif ($field['type'] == 'not_editable')
+
+			<div class="col-xs-6">
+				<div class="form-group">
+					{{ Form::label($fname, $field['title']) }}
+					{{ Form::text($fname, null, array('class' => 'form-control', 'disabled' => 'disabled')) }}
+				</div>
+			</div>
 			
 		@elseif ($field['type'] == 'textarea')
 			
