@@ -99,6 +99,14 @@ $(document).ready(function() {
 		var $this = $(this);
 		location.href = $this.val();
 	});
+
+	var i = 0;
+	$('.sidebar .nav-header').each(function() {
+		var $this = $(this);
+		i++;
+		if (i > 4) i = 1;
+		$this.addClass('nav-header'+i);
+	});
 	
 });
 
