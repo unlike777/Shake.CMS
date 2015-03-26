@@ -100,6 +100,25 @@ function table_prefix($str) {
 }
 
 /**
+ * Возвращает SQL с подставленными значениями
+ * @param $builder Illuminate\Database\Query\Builder
+ * @return str
+ */
+function toSql($builder) {
+	$sql = $builder->toSql();
+	foreach($builder->getBindings() as $binding)
+	{
+		if ($binding instanceof \DateTime) {
+			$binding = $binding->format('Y-m-d H:i:s');
+		}
+
+		$value = is_numeric($binding) ? $binding : "'".$binding."'";
+		$sql = preg_replace('/\?/', $value, $sql, 1);
+	}
+	return $sql;
+}
+
+/**
  * Выведет информацию о времени существования сайта
  * @param $start_year
  * @return string
