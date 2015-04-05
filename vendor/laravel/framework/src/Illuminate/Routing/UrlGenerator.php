@@ -217,7 +217,7 @@ class UrlGenerator {
 	 *
 	 * @throws \InvalidArgumentException
 	 */
-	public function route($name, $parameters = array(), $absolute = false, $route = null)
+	public function route($name, $parameters = array(), $absolute = true, $route = null)
 	{
 		$route = $route ?: $this->routes->getByName($name);
 
@@ -442,7 +442,7 @@ class UrlGenerator {
 	 * @param  bool    $absolute
 	 * @return string
 	 */
-	public function action($action, $parameters = array(), $absolute = false)
+	public function action($action, $parameters = array(), $absolute = true)
 	{
 		return $this->route($action, $parameters, $absolute, $this->routes->getByAction($action));
 	}
@@ -485,7 +485,7 @@ class UrlGenerator {
 	 */
 	public function isValidUrl($path)
 	{
-		if (starts_with($path, array('#', '//', 'mailto:', 'tel:'))) return true;
+		if (starts_with($path, ['#', '//', 'mailto:', 'tel:', 'http://', 'https://'])) return true;
 
 		return filter_var($path, FILTER_VALIDATE_URL) !== false;
 	}

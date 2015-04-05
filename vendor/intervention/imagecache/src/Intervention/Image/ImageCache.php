@@ -3,7 +3,6 @@
 namespace Intervention\Image;
 
 use Exception;
-use Jeremeamia\SuperClosure\SerializableClosure;
 use Illuminate\Cache\Repository as Cache;
 
 class ImageCache
@@ -116,7 +115,7 @@ class ImageCache
     public function make($data)
     {
         // include "modified" property for any files
-        if (is_file((string) $data)) {
+        if ($this->isFile($data)) {
             $this->setProperty('modified', filemtime((string) $data));
         }
 
@@ -124,6 +123,19 @@ class ImageCache
         $this->__call('make', array($data));
 
         return $this;
+    }
+
+    /**
+     * Checks if given data is file, handles mixed input
+     *
+     * @param  mixed $value
+     * @return boolean
+     */
+    private function isFile($value)
+    {
+        $value = strval(str_replace("\0", "", $value));
+
+        return is_file($value);
     }
 
     /**
@@ -207,12 +219,29 @@ class ImageCache
         foreach ($calls as $i => $call) {
             foreach ($call['arguments'] as $j => $argument) {
                 if (is_a($argument, 'Closure')) {
-                    $calls[$i]['arguments'][$j] = new SerializableClosure($argument);
+                    $calls[$i]['arguments'][$j] = $this->buildSerializableClosure($argument);
                 }
             }
         }
 
         return $calls;
+    }
+
+    /**
+     * Build SerializableClosure from Closure
+     *
+     * @param  Closure $closure
+     * @return Jeremeamia\SuperClosure\SerializableClosure|SuperClosure\SerializableClosure
+     */
+    private function buildSerializableClosure(\Closure $closure)
+    {
+        switch (true) {
+            case class_exists('SuperClosure\\SerializableClosure'):
+                return new \SuperClosure\SerializableClosure($closure);
+            
+            default:
+                return new \Jeremeamia\SuperClosure\SerializableClosure($closure);
+        }
     }
 
     /**
