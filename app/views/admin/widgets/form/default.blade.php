@@ -21,6 +21,29 @@
 				</div>
 			</div>
 			
+		@elseif ($field['type'] == 'date')
+        				
+			<div class="col-xs-6">
+				<div class="form-group">
+					{{ Form::label($fname, $field['title']) }}
+					<div class='input-group date' id='datetimepicker_{{ $fname }}'>
+						{{ Form::text($fname, null, array('class' => 'form-control')) }}
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+			
+			<script type="text/javascript">
+				$(function () {
+					$('#datetimepicker_{{ $fname }}').datetimepicker({
+						locale: 'ru',
+						format: 'YYYY-MM-DD HH:mm'
+					});
+				});
+			</script>
+			
 		@elseif ($field['type'] == 'textarea')
 			
 			<div class="col-xs-12">
