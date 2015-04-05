@@ -123,6 +123,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
 		'Ivanlemeshev\LaravelCyrillicSlug\SlugServiceProvider',
+		'Mews\Captcha\CaptchaServiceProvider',
 	),
 
 	/*
@@ -191,6 +192,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Image'           => 'Intervention\Image\Facades\Image',
 		'Slug' 			  => 'Ivanlemeshev\LaravelCyrillicSlug\Facades\Slug',
+		'Captcha' 		  => 'Mews\Captcha\Facades\Captcha',
 
 	),
 
