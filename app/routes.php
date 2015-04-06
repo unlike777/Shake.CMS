@@ -87,13 +87,18 @@ Route::group(array('prefix'=>'admin', 'before' => 'auth'), function()
 	
 });
 
+Route::group(array('before' => 'auth'), function()
+{
+	Route::any('/users/edit', array('as' => 'users.edit', 'uses' => 'UsersController@edit'));
+	Route::any('/users/soc/disconnect/{provider}', array('as' => 'users.soc.disconnect', 'uses' => 'UsersController@disconnect'));
+});
 
-
+Route::any('/users/login', array('as' => 'login', 'uses' => 'UsersController@login'));
+Route::any('/users/logout', array('as' => 'logout', 'uses' => 'UsersController@logout'));
+Route::any('/users/register', array('as' => 'users.register', 'uses' => 'UsersController@register'));
+Route::any('/users/soc/{provider}', array('as' => 'users.soc', 'uses' => 'UsersController@soc'));
 
 Route::get('/test', 'TestController@def');
 Route::get('/', 'PagesController@def');
-
-Route::any('/login', 'UsersController@login');
-Route::any('/logout', 'UsersController@logout');
 
 Route::get('/pages/{slug}', 'PagesController@pages');

@@ -81,7 +81,14 @@ class User extends ShakeModel implements UserInterface, RemindableInterface {
 				'password' => 'required|min:6',
 			);
 		}
-
+		
+		if ($behavior == 'onAdd') {
+			$rules['password2'] = 'required|same:password';
+		}
+		
+		if ($behavior == 'onEdit') {
+			$rules['password2'] = 'required_with:password|same:password';
+		}
 
 		return Validator::make($data, $rules);
 	}
@@ -104,6 +111,11 @@ class User extends ShakeModel implements UserInterface, RemindableInterface {
 		}
 		
 		parent::fill($attributes);
+	}
+	
+	
+	public function profiles() {
+		return $this->hasMany('Profile', 'user_id');
 	}
 
 }
