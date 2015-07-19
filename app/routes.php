@@ -10,26 +10,7 @@
 |
 */
 
-//DB::listen(function($query, $bindings, $time)
-//{
-//	
-//	foreach ($bindings as $i => $binding)
-//	{
-//		if ($binding instanceof \DateTime)
-//		{
-//			$bindings[$i] = $binding->format('\'Y-m-d H:i:s\'');
-//		}
-//		else if (is_string($binding))
-//		{
-//			$bindings[$i] = "'$binding'";
-//		}
-//	}
-//
-//	$query = str_replace(array('%', '?'), array('%%', '%s'), $query);
-//	$query = vsprintf($query, $bindings);
-//
-//	SqlDebug::add($query, $time/1000);
-//});
+//SqlDebug::on();
 
 //if (isset($_SERVER['HTTP_REFERER']))
 //pr($_SERVER['HTTP_REFERER']);
