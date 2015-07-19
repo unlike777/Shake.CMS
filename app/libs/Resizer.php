@@ -73,37 +73,27 @@ class Resizer {
 
 	/**
 	 * Удаляет кеш текущей картинки
-	 * рекурсивная функция
-	 * @param string $del_file
-	 * @param string $from_path
 	 */
-	public function deleteCache($del_file = '', $from_path = '') {
-		if (is_dir(public_path().$from_path) && !empty(self::$img)) {
+	public function deleteCache() {
+		if (!empty(self::$img)) {
 			
-			if (empty($del_file)) {
-				$del_file = $this->resize_prefix().basename(self::$img);
+			$filename = $this->resize_prefix().basename(self::$img);
+			$from_path = $this->public_path().$this->cache_path();
+			
+			$full = $from_path.'*/'.$filename;
+			$arr = glob($full);
+			$arr = ($arr === false) ? array() : $arr;
+			
+			$full = $from_path.'/'.$filename;
+			$arr2 = glob($full);
+			$arr2 = ($arr2 === false) ? array() : $arr2;
+			
+			$arr = array_merge($arr, $arr2);
+			
+			foreach ($arr as $file) {
+				@unlink($file);
 			}
 			
-			if (empty($from_path)) {
-				$from_path = $this->cache_path().'/';
-			}
-			
-			chdir($this->public_path().$from_path);
-			$handle = opendir('.');
-
-			while (($file = readdir($handle)) !== false) {
-				if ($file != "." && $file != "..") {
-
-					if (is_dir($this->public_path().$from_path.$file)) {
-						$this->deleteCache($del_file, $from_path.$file.'/');
-						chdir(public_path().$from_path);
-					}
-
-					if (is_file(public_path().$from_path.$file) && $file == $del_file)
-						@unlink(public_path().$from_path.$file);
-				}
-			}
-			closedir($handle);
 		}
 	}
 
