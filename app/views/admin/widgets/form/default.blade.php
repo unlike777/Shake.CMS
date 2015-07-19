@@ -33,16 +33,16 @@
 						</span>
 					</div>
 				</div>
-			</div>
-			
-			<script type="text/javascript">
-				$(function () {
-					$('#datetimepicker_{{ $fname }}').datetimepicker({
-						locale: 'ru',
-						format: 'YYYY-MM-DD HH:mm'
+				
+				<script type="text/javascript">
+					$(function () {
+						$('#datetimepicker_{{ $fname }}').datetimepicker({
+							locale: 'ru',
+							format: 'YYYY-MM-DD HH:mm'
+						});
 					});
-				});
-			</script>
+				</script>
+			</div>
 			
 		@elseif ($field['type'] == 'textarea')
 			
