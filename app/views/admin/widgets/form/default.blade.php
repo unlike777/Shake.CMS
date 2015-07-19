@@ -3,131 +3,115 @@
 	
 		@foreach($item->getFormFields() as $fname => $field)
 				
-		@if ($field['type'] == 'text')
-			
-			<div class="col-xs-6">
-				<div class="form-group">
-					{{ Form::label($fname, $field['title']) }}
-					{{ Form::text($fname, null, array('class' => 'form-control')) }}
-				</div>
-			</div>
-
-		@elseif ($field['type'] == 'not_editable')
-
-			<div class="col-xs-6">
-				<div class="form-group">
-					{{ Form::label($fname, $field['title']) }}
-					{{ Form::text($fname, null, array('class' => 'form-control', 'disabled' => 'disabled')) }}
-				</div>
-			</div>
-			
-		@elseif ($field['type'] == 'date')
-        				
-			<div class="col-xs-6">
-				<div class="form-group">
-					{{ Form::label($fname, $field['title']) }}
-					<div class='input-group date' id='datetimepicker_{{ $fname }}'>
+			@if ($field['type'] == 'text')
+				
+				<div class="col-xs-6">
+					<div class="form-group">
+						{{ Form::label($fname, $field['title']) }}
 						{{ Form::text($fname, null, array('class' => 'form-control')) }}
-						<span class="input-group-addon">
-							<span class="glyphicon glyphicon-calendar"></span>
-						</span>
+					</div>
+				</div>
+	
+			@elseif ($field['type'] == 'not_editable')
+	
+				<div class="col-xs-6">
+					<div class="form-group">
+						{{ Form::label($fname, $field['title']) }}
+						{{ Form::text($fname, null, array('class' => 'form-control', 'disabled' => 'disabled')) }}
+					</div>
+				</div>
+				
+			@elseif ($field['type'] == 'date')
+							
+				<div class="col-xs-6">
+					<div class="form-group">
+						{{ Form::label($fname, $field['title']) }}
+						<div class='input-group date' id='datetimepicker_{{ $fname }}'>
+							{{ Form::text($fname, null, array('class' => 'form-control')) }}
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+					</div>
+					
+					<script type="text/javascript">
+						$(function () {
+							$('#datetimepicker_{{ $fname }}').datetimepicker({
+								locale: 'ru',
+								format: 'YYYY-MM-DD HH:mm'
+							});
+						});
+					</script>
+				</div>
+				
+			@elseif ($field['type'] == 'textarea')
+				
+				<div class="col-xs-12">
+					<div class="form-group">
+						{{ Form::label($fname, $field['title']) }}
+						{{ Form::textarea($fname, null, array('class' => 'form-control')) }}
+					</div>
+				</div>
+				
+			@elseif ($field['type'] == 'ckeditor')
+					
+				<div class="col-xs-12">
+					<div class="form-group">
+						{{ Form::label($fname, $field['title']) }}
+						{{ Form::textarea($fname, null, array('class' => 'form-control')) }}
 					</div>
 				</div>
 				
 				<script type="text/javascript">
-					$(function () {
-						$('#datetimepicker_{{ $fname }}').datetimepicker({
-							locale: 'ru',
-							format: 'YYYY-MM-DD HH:mm'
-						});
-					});
-				</script>
-			</div>
-			
-		@elseif ($field['type'] == 'textarea')
-			
-			<div class="col-xs-12">
-				<div class="form-group">
-					{{ Form::label($fname, $field['title']) }}
-					{{ Form::textarea($fname, null, array('class' => 'form-control')) }}
-				</div>
-			</div>
-			
-		@elseif ($field['type'] == 'ckeditor')
+					  var ckeditor = CKEDITOR.replace('{{$fname}}');
+				  </script>
 				
-			<div class="col-xs-12">
-				<div class="form-group">
-					{{ Form::label($fname, $field['title']) }}
-					{{ Form::textarea($fname, null, array('class' => 'form-control')) }}
-				</div>
-			</div>
-			
-			<script type="text/javascript">
-				  var ckeditor = CKEDITOR.replace('{{$fname}}');
-			  </script>
-			
-		@elseif ($field['type'] == 'file')
-
-				@if (empty($item->{$fname}) || !file_exists(public_path().$item->{$fname}))
-					<div class="col-xs-6">
-						<div class="form-group">
-							{{ Form::label($fname, $field['title']) }}
-							{{ Form::file($fname) }}
+			@elseif ($field['type'] == 'file')
+	
+					@if (empty($item->{$fname}) || !file_exists(public_path().$item->{$fname}))
+						<div class="col-xs-6">
+							<div class="form-group">
+								{{ Form::label($fname, $field['title']) }}
+								{{ Form::file($fname) }}
+							</div>
 						</div>
-					</div>
-				@else
-					<div class="col-xs-6">
-						<div class="form-group">
-							<a href="{{ $item->{$fname} }}" target="_blank">
-
-								<?
-								$img_check = false;
-								try {
-									Image::make(public_path().$item->{$fname});
-									$img_check = true;
-								} catch (Exception $e) {}
-								?>
-
-								@if ( $img_check )
-									<img src="{{ Resizer::image($item->{$fname})->make(200, 100) }}">
-								@else
-									Скачать ({{ $item->{$fname} }}) <br>
-								@endif
-
-							</a>
-							{{ Form::checkbox($fname.'_del', 0, 0, array('id' => $fname.'_del')) }}
-							{{ Form::label($fname.'_del', 'Удалить?') }}
-							{{ Form::hidden($fname, null, array('class' => 'form-control')) }}
+					@else
+						<div class="col-xs-6">
+							<div class="form-group">
+								<a href="{{ $item->{$fname} }}" target="_blank">
+	
+									<?
+									$img_check = false;
+									try {
+										Image::make(public_path().$item->{$fname});
+										$img_check = true;
+									} catch (Exception $e) {}
+									?>
+	
+									@if ( $img_check )
+										<img src="{{ Resizer::image($item->{$fname})->make(200, 100) }}">
+									@else
+										Скачать ({{ $item->{$fname} }}) <br>
+									@endif
+	
+								</a>
+								{{ Form::checkbox($fname.'_del', 0, 0, array('id' => $fname.'_del')) }}
+								{{ Form::label($fname.'_del', 'Удалить?') }}
+								{{ Form::hidden($fname, null, array('class' => 'form-control')) }}
+							</div>
 						</div>
-					</div>
-				@endif
-			
-		@elseif ($field['type'] == 'password')
+					@endif
 				
-			<div class="col-xs-6">
-				<div class="form-group">
-					{{ Form::label($fname, $field['title']) }}
-					{{ Form::password($fname, array('class' => 'form-control')) }}
-				</div>
-			</div>
-			
-		@elseif ($field['type'] == 'select')
-
+			@elseif ($field['type'] == 'password')
+					
 				<div class="col-xs-6">
 					<div class="form-group">
 						{{ Form::label($fname, $field['title']) }}
-
-						@if (is_array($field['values']))
-							{{ Form::select($fname, $field['values'], null, array('class' => 'form-control')) }}
-						@else
-							<? eval('$arr = '.$field['values']); ?>
-							{{ Form::select($fname, $arr, null, array('class' => 'form-control')) }}
-						@endif
-
+						{{ Form::password($fname, array('class' => 'form-control')) }}
 					</div>
 				</div>
 			
-		@endif
+			@endif
 		
 		@endforeach
 		
@@ -138,12 +122,30 @@
 		@foreach($item->getFormFields() as $fname => $field)
 					
 			@if ($field['type'] == 'bool')
-			<div class="col-lg-6">
-				<div class="form-group">
-					{{ Form::checkbox($fname, 1, NULL, array('id' => $fname)) }}
-					{{ Form::label($fname, $field['title']) }}
+				
+				<div class="col-lg-6">
+					<div class="form-group">
+						{{ Form::checkbox($fname, 1, NULL, array('id' => $fname)) }}
+						{{ Form::label($fname, $field['title']) }}
+					</div>
 				</div>
-			</div>
+			
+			@elseif ($field['type'] == 'select')
+				
+				<div class="col-xs-12">
+					<div class="form-group">
+						{{ Form::label($fname, $field['title']) }}
+						
+						@if (is_array($field['values']))
+							{{ Form::select($fname, $field['values'], null, array('class' => 'form-control')) }}
+						@else
+							<? eval('$arr = '.$field['values']); ?>
+							{{ Form::select($fname, $arr, null, array('class' => 'form-control')) }}
+						@endif
+					
+					</div>
+				</div>
+			
 			@endif
 		
 		@endforeach
