@@ -13,6 +13,7 @@ View::composer('admin.widgets.mainMenu.*', function($view) {
 			'items' => array(
 				array('name' => 'Пользователи', 'url' => '/admin/users', 'route' => 'UsersAdminController', 'glyph' => 'glyphicon-user'),
 				array('name' => 'Настройки', 'url' => '/admin/settings', 'route' => 'SettingsAdminController', 'glyph' => 'glyphicon-wrench'),
+				array('name' => 'Инфо о сервере', 'url' => '/admin/info', 'route' => 'InfoAdminController', 'glyph' => 'glyphicon-info-sign'),
 			),
 		),
 	);

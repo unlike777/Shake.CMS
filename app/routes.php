@@ -47,7 +47,12 @@ Route::group(array('prefix'=>'admin', 'before' => 'auth'), function()
 
 	Route::any('/pages/test',
 		array('as'=>'pagesTestAdmin', 'uses'=>'PagesAdminController@test'));
-
+	
+	Route::any('/info',
+		array('as'=>'InfoDefaultAdmin', 'uses'=>'InfoAdminController@def'));
+	
+	Route::any('/info/php',
+		array('as'=>'InfoPhpAdmin', 'uses'=>'InfoAdminController@php'));
 	
 	
 	$arr = array('users');
