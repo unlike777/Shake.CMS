@@ -180,4 +180,35 @@ class ShakeModel extends Eloquent {
 		return parent::save($options);
 	}
 	
+	/**
+	 * Вернет список всех значений справочника у поля
+	 * @param $field
+	 * @return array
+	 */
+	public function getList($field) {
+		if (isset($this->fields[$field]['values'])) {
+			$values = $this->fields[$field]['values'];
+			if (is_array($values)) {
+				return $values;
+			}
+		}
+		
+		return array();
+	}
+	
+	/**
+	 * Вернет конкретное значение у поля справочника
+	 * @param $field
+	 * @return null
+	 */
+	public function listVal($field) {
+		$arr = $this->getList($field);
+		
+		if (array_key_exists($this->{$field}, $arr)) {
+			return $arr[$this->{$field}];
+		}
+		
+		return NULL;
+	}
+	
 }
