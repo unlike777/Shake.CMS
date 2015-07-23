@@ -127,6 +127,15 @@ function siteExist($start_year) {
 	return (date('Y') <= $start_year) ? $start_year : $start_year.' — '.date('Y');
 }
 
+/**
+ * Выведт значени поля у пользователя или пустоту
+ * @param $fname
+ * @return string
+ */
+function user_field($fname) {
+	return Auth::user() ? Auth::user()->{$fname} : NULL;
+}
+
 
 /*
 |--------------------------------------------------------------------------
