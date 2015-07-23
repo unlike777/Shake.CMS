@@ -29,7 +29,7 @@ class SqlDebug {
 	 */
 	public static function out() {
 		
-		if (!empty(self::$time)) {
+		if (count(self::$strings)) {
 			pr('SQL time: '.self::$time);
 			pr('SQL count: '.count(self::$strings));
 		}
