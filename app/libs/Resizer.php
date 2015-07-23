@@ -99,10 +99,10 @@ class Resizer {
 
 	/**
 	 * Ресайзить картинку и кеширует ее
-	 * @param int $width
-	 * @param int $height
-	 * @param int $scale_type
-	 * @param int $bg
+	 * @param int $width - ширина
+	 * @param int $height - высота
+	 * @param int $scale_type - режим работы; 0 - изображение заполняет всю область, 1 - изображение вписывается в заданную область
+	 * @param int $bg - цвет фона
 	 * @return string
 	 */
 	public function make($width = 0, $height = 0, $scale_type = 0, $bg = 0) {
@@ -137,16 +137,26 @@ class Resizer {
 			}
 
 			if ($height > 0 && $width > 0) {
-
+				
 				if (($img->width() <= $width) && ($img->height() <= $height)) {
 					return self::$img;
 				}
-
+				
 				if ($scale_type == 1) {
-					($img->width() < $img->height()) ? $img->heighten($height) : $img->widen($width);
+					
+					$kw = $img->width() / $width;
+//					$kh = $img->height() / $height;
+					
+					if ( ($img->height() / $kw) <= $height ) {
+						$img->widen($width);
+					} else {
+						$img->heighten($height);
+					}
+					
 				} else {
 					$img->fit($width, $height);
 				}
+				
 
 			} else if ($height > 0) {
 
