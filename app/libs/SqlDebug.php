@@ -30,6 +30,9 @@ class SqlDebug {
 	public static function out() {
 		
 		if (count(self::$strings)) {
+			$page_gen = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
+			$page_gen = round($page_gen, 3);
+			pr('ALL time: '.$page_gen);
 			pr('SQL time: '.self::$time);
 			pr('SQL count: '.count(self::$strings));
 		}
