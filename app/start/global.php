@@ -136,6 +136,26 @@ function user_field($fname) {
 	return Auth::user() ? Auth::user()->{$fname} : NULL;
 }
 
+/**
+ * @return string
+ * @param string $str - Исходная строка
+ * @param int $length - Размер результирующей строки
+ * @param string $char - Символ которым дополнять строку
+ * @param string $pos - Позиция добавления r/l
+ * @desc Дополняем строку до нужного размера
+ */
+function fit_line($str, $length, $char = ' ', $pos = 'r') {
+	$str_length = mb_strlen($str, 'UTF-8');
+	if ($str_length < $length) {
+		$count = $length - $str_length;
+		while ($count > 0) {
+			$str = ($pos == 'r') ? $str.$char : $char.$str;
+			$count--;
+		}
+	}
+	return $str;
+}
+
 
 /*
 |--------------------------------------------------------------------------
