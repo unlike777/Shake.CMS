@@ -65,7 +65,9 @@ class ShakeTable {
 		
 		$ret = '';
 		$ret .= '<th width="40"></th>';
-		$ret .= '<th width="40" style="color: #BABABA;"><span class="glyphicon glyphicon-eye-open"></span></th>';
+		if ($this->model->hasActive()) {
+			$ret .= '<th width="40" style="color: #BABABA;"><span class="glyphicon glyphicon-eye-open"></span></th>';
+		}
 		$ret .= '<th width="70">#</th>';
 		
 		foreach ($this->columns as $name => $col) {
@@ -134,11 +136,13 @@ class ShakeTable {
 	public function row($item) {
 		$ret = '';
 		$ret .= '<td>'.Form::checkbox('', 1, NULL, array('class' => 'table__checkbox')).'</td>';
-
-		if ($item->active == 1) {
-			$ret .= '<td><span class="glyphicon glyphicon-eye-open table__row_eye" data-route="/admin/'.$this->module.'/active"></span></td>';
-		} else {
-			$ret .= '<td><span class="glyphicon glyphicon-eye-close table__row_eye" data-route="/admin/'.$this->module.'/active"></span></td>';
+		
+		if ($this->model->hasActive()) {
+			if ($item->active == 1) {
+				$ret .= '<td><span class="glyphicon glyphicon-eye-open table__row_eye" data-route="/admin/'.$this->module.'/active"></span></td>';
+			} else {
+				$ret .= '<td><span class="glyphicon glyphicon-eye-close table__row_eye" data-route="/admin/'.$this->module.'/active"></span></td>';
+			}
 		}
 		
 		$ret .= '<td>'.$item->id.'</td>';
