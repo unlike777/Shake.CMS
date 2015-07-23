@@ -4,24 +4,24 @@
 	<meta charset="UTF-8">
 	<title>Shake.CMS</title>
 
-	<link type="text/css" rel="stylesheet" href="{{ uncache('css_js_admin/bootstrap/css/bootstrap.css') }}">
-	<link type="text/css" rel="stylesheet" href="{{ uncache('css_js_admin/bootstrap/css/bootstrap-theme.css') }}">
-	<link type="text/css" rel="stylesheet" href="{{ uncache('css_js_admin/libs/nestable/style.css') }}">
-	<link type="text/css" rel="stylesheet" href="{{ uncache('css_js_admin/bootstrap/css/bootstrap-datetimepicker.min.css') }}">
+	<link type="text/css" rel="stylesheet" href="{{ uncache('cms/bootstrap/css/bootstrap.css') }}">
+	<link type="text/css" rel="stylesheet" href="{{ uncache('cms/bootstrap/css/bootstrap-theme.css') }}">
+	<link type="text/css" rel="stylesheet" href="{{ uncache('cms/libs/nestable/style.css') }}">
+	<link type="text/css" rel="stylesheet" href="{{ uncache('cms/bootstrap/css/bootstrap-datetimepicker.min.css') }}">
 	
-	<link type="text/css" rel="stylesheet" href="{{ uncache('css_js_admin/style.css') }}">
+	<link type="text/css" rel="stylesheet" href="{{ uncache('cms/style.css') }}">
 
-	<script type="text/javascript" src="{{ uncache('css_js_admin/libs/libs.js') }}"></script>
-	<script type="text/javascript" src="{{ uncache('css_js_admin/libs/nestable/jquery.nestable.js') }}"></script>
-	<script type="text/javascript" src="{{ uncache('css_js_admin/bootstrap/js/moment.js') }}"></script>
-	<script type="text/javascript" src="{{ uncache('css_js_admin/bootstrap/js/bootstrap.js') }}"></script>
-	<script type="text/javascript" src="{{ uncache('css_js_admin/bootstrap/js/bootstrap-datetimepicker.js') }}"></script>
-	<script type="text/javascript" src="{{ uncache('css_js_admin/ckeditor/ckeditor.js') }}"></script>
-	<script type="text/javascript" src="{{ uncache('css_js_admin/libs/myLib.js') }}"></script>
-	<script type="text/javascript" src="{{ uncache('css_js_admin/adaptive.js') }}"></script>
-	<script type="text/javascript" src="{{ uncache('css_js_admin/table.js') }}"></script>
-	<script type="text/javascript" src="{{ uncache('css_js_admin/drop.js') }}"></script>
-	<script type="text/javascript" src="{{ uncache('css_js_admin/js.js') }}"></script>
+	<script type="text/javascript" src="{{ uncache('cms/libs/libs.js') }}"></script>
+	<script type="text/javascript" src="{{ uncache('cms/libs/nestable/jquery.nestable.js') }}"></script>
+	<script type="text/javascript" src="{{ uncache('cms/bootstrap/js/moment.js') }}"></script>
+	<script type="text/javascript" src="{{ uncache('cms/bootstrap/js/bootstrap.js') }}"></script>
+	<script type="text/javascript" src="{{ uncache('cms/bootstrap/js/bootstrap-datetimepicker.js') }}"></script>
+	<script type="text/javascript" src="{{ uncache('cms/ckeditor/ckeditor.js') }}"></script>
+	<script type="text/javascript" src="{{ uncache('cms/libs/myLib.js') }}"></script>
+	<script type="text/javascript" src="{{ uncache('cms/adaptive.js') }}"></script>
+	<script type="text/javascript" src="{{ uncache('cms/table.js') }}"></script>
+	<script type="text/javascript" src="{{ uncache('cms/drop.js') }}"></script>
+	<script type="text/javascript" src="{{ uncache('cms/js.js') }}"></script>
 </head>
 <body>
 	@if (Session::has('message'))

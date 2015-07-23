@@ -12,7 +12,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.toolbar = 'Shake.CMS';
 
-	config.filebrowserBrowseUrl = '/css_js_admin/elfinder/elfinder.html';
+	config.filebrowserBrowseUrl = '/cms/elfinder/elfinder.html';
 	config.filebrowserWindowHeight = 520;
 
 	//config.extraPlugins = 'mediaembed';
