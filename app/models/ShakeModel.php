@@ -152,14 +152,10 @@ class ShakeModel extends Eloquent {
 	 * @throws Exception
 	 */
 	public function delete() {
-		
-		foreach ($this->file_rules as $key => $val) {
-			
+		foreach ($this->getFileFields() as $key) {
 			Resizer::image($this->{$key})->deleteCache();
 			@unlink(public_path().$this->{$key});
-			
 		}
-		
 		return parent::delete();
 	}
 
