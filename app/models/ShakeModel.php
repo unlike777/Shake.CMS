@@ -211,4 +211,12 @@ class ShakeModel extends Eloquent {
 		return NULL;
 	}
 	
+	/**
+	 * Проверяет есть ли у класса поле active (нужно для талицы в админке)
+	 * @return bool
+	 */
+	public function hasActive() {
+		return in_array('active', $this->fillable) ? true : false;
+	}
+	
 }
