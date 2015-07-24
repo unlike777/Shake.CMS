@@ -10,6 +10,7 @@
 |
 */
 
+//\Debugbar::enable();
 //SqlDebug::on();
 
 //if (isset($_SERVER['HTTP_REFERER']))

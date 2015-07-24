@@ -124,6 +124,7 @@ return array(
 		'Intervention\Image\ImageServiceProvider',
 		'Ivanlemeshev\LaravelCyrillicSlug\SlugServiceProvider',
 		'Mews\Captcha\CaptchaServiceProvider',
+		'Barryvdh\Debugbar\ServiceProvider',
 	),
 
 	/*
@@ -193,6 +194,7 @@ return array(
 		'Image'           => 'Intervention\Image\Facades\Image',
 		'Slug' 			  => 'Ivanlemeshev\LaravelCyrillicSlug\Facades\Slug',
 		'Captcha' 		  => 'Mews\Captcha\Facades\Captcha',
+		'Debugbar' 		  => 'Barryvdh\Debugbar\Facade',
 
 	),
 

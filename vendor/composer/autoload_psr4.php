@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Symfony\\Component\\VarDumper\\' => array($vendorDir . '/symfony/var-dumper'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Intervention\\Image\\' => array($vendorDir . '/intervention/image/src/Intervention/Image', $vendorDir . '/intervention/imagecache/src/Intervention/Image'),
+    'Barryvdh\\Debugbar\\' => array($vendorDir . '/barryvdh/laravel-debugbar/src'),
 );

@@ -35,6 +35,7 @@ return array(
     'Ivanlemeshev\\LaravelCyrillicSlug\\' => array($vendorDir . '/ivanlemeshev/laravel-cyrillic-slug/src'),
     'Illuminate' => array($vendorDir . '/laravel/framework/src'),
     'File' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
+    'DebugBar' => array($vendorDir . '/maximebf/debugbar/src'),
     'Crypt' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'ClassPreloader' => array($vendorDir . '/classpreloader/classpreloader/src'),
     'Carbon' => array($vendorDir . '/nesbot/carbon/src'),
