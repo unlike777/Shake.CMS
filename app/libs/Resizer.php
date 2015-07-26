@@ -110,14 +110,11 @@ class Resizer {
 		if (empty(self::$img)) {
 			return '';
 		}
-
+		
 		//на случай, если передана не картинка
-		try {
-			$img = Image::make($this->full_path());
-		} catch (Exception $e) {
+		if (!@exif_imagetype($this->full_path())) {
 			return self::$img;
 		}
-		
 
 		$width = intval($width);
 		$height = intval($height);
@@ -130,6 +127,9 @@ class Resizer {
 		$resize_file_name = $dir.'/'.$pref.substr(strrchr(self::$img, "/"), 1);
 
 		if (!file_exists($this->public_path() . $resize_file_name)) {
+			
+			$img = Image::make($this->full_path());
+			
 			if (!is_dir($this->public_path() . $dir)) @mkdir($this->public_path() . $dir, 0777, true);
 
 			if (!empty($bg)) {
