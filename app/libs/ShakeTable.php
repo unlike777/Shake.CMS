@@ -9,7 +9,7 @@ class ShakeTable {
 	private $data; 						//Полученные данные, к ним применяются фильтры и постраничная навигация
 	private $columns = array();			//колонки
 	private $module = '';				//название модуля
-	private $page_counts_arr = array(5, 10, 50);
+	private $page_counts_arr = array(12, 25, 50, 100);
 	
 	private $filter_fields = array(); 	//поля участвующие в фильтре
 
@@ -136,7 +136,7 @@ class ShakeTable {
 	public function row($item) {
 		$ret = '';
 		$ret .= '<td>'.Form::checkbox('', 1, NULL, array('class' => 'table__checkbox')).'</td>';
-		
+
 		if ($this->model->hasActive()) {
 			if ($item->active == 1) {
 				$ret .= '<td><span class="glyphicon glyphicon-eye-open table__row_eye" data-route="/admin/'.$this->module.'/active"></span></td>';
@@ -239,7 +239,7 @@ class ShakeTable {
 	 * Применяем постраничку к данным
 	 */
 	public function apply_pager() {
-		$this->data = $this->data->orderBy('created_at')->paginate($this->per_page());
+		$this->data = $this->data->paginate($this->per_page());
 	}
 
 	/**
@@ -299,6 +299,8 @@ class ShakeTable {
 			$trend = Session::get($ses.'.sort_trend');
 			$this->data = $this->data->orderBy($param, $trend);
 		}
+		
+		$this->data = $this->data->orderBy('id', 'desc');
 	}
 	
 	/**
@@ -317,6 +319,7 @@ class ShakeTable {
 
 		
 		$this->apply_filter();
+		$all_count = $this->data->count();
 		$this->apply_sort();
 		$this->apply_pager();
 		
@@ -327,6 +330,8 @@ class ShakeTable {
 			.$ret
 			.$this->multiple()
 			.'</table>';
+		
+		$ret .= '<div class="table__all_count">Общее кол-во: '.$all_count.'</div>';
 		
 		$ret .= '<div class="table__bottom">';
 		$ret .= $this->pager();
