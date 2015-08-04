@@ -1,27 +1,35 @@
-/*
-* Собственный класс вспомогательных функций для JS
-*
-* langs - массив с доступными языками
-* lang - массив с языковыми переменными
-* ajax - флаг проверки выполнения ajax запросов
-*
-* getLang() - Определяет текущий язык сайта (по первой секции url), если ничего не найдено возвращается первый из доступных языков
-* getMessage(name) - Возвращает языковую переменную из массива lang, в зависимости от текущего языка сайта
-* get(url, foo, type, fail) - Декоратор для функции $.get, препятсвует множественному выполнению (требуется jQuery)
-* post(url, parrams, foo, type, fail) - Декоратор для функции $.post, препятсвует множественному выполнению (требуется jQuery)
-* alert(text, foo) - Декоратор для всплывающих уведомлений
-* number_format( number, decimals, dec_point, thousands_sep ) - форматирует число, аналог php number_format (decimals по умолчанию 0)
-* fmod(a,b) - остаток от деления дробных чисел
-* count_char_after_dot(f) - количество знаков после запятой
-* noScreening(obj) - убирает экранирование html тегов
-* array_unique(arr) - массив без повторяющихся значений
-* in_array(needle, haystack, strict) - аналог php функции
-* decl(count, one, two, five) - возвращает слово в нужном склонении в зависимости от количества
-* getDeclNum(number) - возвращает цифру (1, 2, 5) в зависимости от количества
-* getUrlVar() - вернет ассоциативный массив параметров get строки
-* getUrlHash() - разбирает хэш адреса на параметры как get строку, возвращает ассоциативный массив
-*
-*/
+/**
+ * Собственный класс вспомогательных функций для JS | Copyright 2014
+ * https://github.com/unlike777/myLib-js-helper-functions-kit
+ *
+ * langs - массив с доступными языками
+ * messages - массив с языковыми переменными
+ * ajax - флаг проверки выполнения ajax запросов
+ *
+ * getLang() - Определяет текущий язык сайта (по первой секции url), если ничего не найдено возвращается первый из доступных языков
+ * getMessage(name) - Возвращает языковую переменную из массива lang, в зависимости от текущего языка сайта
+ * addMessage(object) - Добавляет языковую переменную в массива lang, object - литерал содержащий переводы на разные языки
+ * checkFileSize(input, max) - Функция проверяет, загружаемый файл, на допустимый размер
+ * imgload(imgs, foo) - Прелоад картинок
+ * alert(text, title, foo) - Абстракция для всплывающих сообщений
+ * get(url, foo, type, fail) - Декоратор для функции $.get, препятсвует множественному выполнению (требуется jQuery)
+ * post(url, parrams, foo, type, fail) - Декоратор для функции $.post, препятсвует множественному выполнению (требуется jQuery)
+ * scrollY - Возвращает позицию прокрутки окна, поддерживает IE
+ * number_format( number, decimals, dec_point, thousands_sep ) - форматирует число, аналог php number_format (decimals по умолчанию 0)
+ * strip_tags(str) - Убирает все теги из текста, аналог php функции strip_tags
+ * fmod(a,b) - остаток от деления дробных чисел
+ * count_char_after_dot(f) - количество знаков после запятой
+ * noScreening(obj) - убирает экранирование html тегов
+ * array_unique(arr) - массив без повторяющихся значений
+ * in_array(needle, haystack, strict) - аналог php функции
+ * decl(count, one, two, five) - возвращает слово в нужном склонении в зависимости от количества
+ * getDeclNum(number) - возвращает цифру (1, 2, 5) в зависимости от количества
+ * getUrlVar() - вернет ассоциативный массив параметров get строки
+ * getUrlHash() - разбирает хэш адреса на параметры как get строку, возвращает ассоциативный массив
+ * getUrl() - вернет секцию из текущего пути, или если num не задан то массив содержащий все секции
+ * parseInt() - Возвращает целое число в 10 системе счисления, обертка для функции parseInt()
+ * 
+ */
 
 
 (function(my, undefined) {
@@ -30,10 +38,14 @@
 	my.langs = ['ru', 'en'];
 
 	//языковые переменные
-	my.lang = {
+	my.messages = {
 		ajax_fail: {
 			ru: 'Что-то пошло не так, перезагрузите страницу и попробуйте снова',
 			en: 'Something went wrong, reload the page and try again'
+		},
+		alert: {
+			ru: 'Уведомление',
+			en: 'Alert'
 		}
 	};
 
@@ -41,10 +53,11 @@
 	my.ajax = true;
 
 	
-	/*
-     * @desc Определяет текущий язык сайта (по первой секции url),
+	/**
+     * Определяет текущий язык сайта (по первой секции url),
 	 * если ничего не найдено возвращается первый из доступных языков
-     * @return string - возвращает текущий язык сайта (ru, en)
+	 * 
+     * @return {string} - возвращает текущий язык сайта (ru, en)
      */
 	my.getLang = function() {
 		var path = location.pathname,
@@ -52,37 +65,153 @@
 			
 		lang = lang[1];
 		
-		if (this.in_array(lang, this.langs)) {
+		if (my.in_array(lang, my.langs)) {
 			return lang;
 		}
 		
 		//если ничего не найдено первый в списке язык по умолчанию
-		return this.langs[0];
+		return my.langs[0];
 	};
 	
-	/*
-     * @desc Возвращает языковую переменную из массива lang, в зависимости от текущего языка сайта
-     * @param string name - идентификатор языковой переменной
-     * @return string - возвращает языкову переменную
+	/**
+     * Возвращает языковую переменную из массива lang, в зависимости от текущего языка сайта
+     * 
+     * @param {string} name - идентификатор языковой переменной
+     * @return {string} - возвращает языкову переменную
      */
 	my.getMessage = function(name) {
-		var lang = this.getLang(),
-			msg = this.lang[name][lang];
+		var lang = my.getLang(),
+			msg = my.messages[name][lang];
 		
 		return (msg !== undefined) ? msg : '';
 	};
 	
-	/*
-     * @desc Декоратор для функции $.get, препятсвует множественному выполнению
-     * @param string url - адрес обработчика
-     * @param foo - функция выполняется при положительном обращении к обработчику
-     * @param string type - тип возвращаемых данных text|json
-	 * @param fail - функция выполняется при неудачном обращении к обработчику
+	/**
+	 * Определяет языковую переменную в массив lang
+	 * 
+	 * @param {Object} object - литерал языковой
+	 */
+	my.addMessage = function(object) {
+		for(var index in object) {
+			my.messages[index] = object[index];
+		}
+	};
+
+
+	/**
+	 * Функция проверяет, загружаемый файл, на допустимый размер
+	 * 
+	 * @param {jQuery|Object} input - объект поля с файлом
+	 * @param max - максимально допустимый размер, по умолчанию 5 Мб
+	 * @returns {boolean}
+	 */
+	my.checkFileSize = function(input, max) {
+		try {
+			max = max || 5; //по умолчанию 5 Мб
+			
+			if (input instanceof jQuery) {
+				input = input[0];
+			}
+			
+			var file = input.files[0],
+				size = file.size;
+
+			return (size <= max * 1024 * 1024);
+		} catch (e) {
+			//в IE всегда true
+			return true;
+		}
+	};
+	
+	
+	/**
+	 * Предзагружает картинки, по завршению вызывает callback функцию
+	 *
+	 * @param {String|jQuery|Array} imgs - набор картинок или путь до картинки
+	 * @param {String} foo - callback по завершению загрузок
+	 */
+	my.imgload = function(imgs, foo) {
+		var arr = [];
+		foo = foo || function() {};
+		
+		//если путь до картинки
+		if (typeof(imgs) == 'string') {
+			var tmp = [];
+			tmp.push(imgs);
+			imgs = tmp;
+		}
+		
+		//если jQuery объект
+		if (imgs instanceof jQuery) {
+			imgs.each(function() {
+				var $this = $(this),
+					src = $this.attr('src');
+				
+				if ($.trim(src) != '') {
+					arr.push(src);
+				}
+			});
+		} else if (imgs instanceof Array) {
+			arr = imgs;
+		}
+		
+		var loaded = 0,
+			count = arr.length;
+		
+		if (count) {
+			for(var i = 0; i < count; i++) {
+				var img     = new Image();
+				img.onload  = function() {
+					if(++loaded == count) {
+						foo();
+					}
+				};
+				img.src = arr[i];
+			}
+		} else {
+			setTimeout(function() {
+				foo();
+			}, 100);
+		}
+	};
+	
+	/**
+	 * Абстракция для всплывающих уведомлений
+	 * 
+	 * @param {string} text - текст сообщения
+	 * @param {string} title - заголовок (по умолчанию "Уведомление")
+	 * @param {function} foo - функция вызывается после закрытия всплывающего окна
+	 */
+	my.alert = function(text, title, foo) {
+		foo = foo || function() {};
+		title = title || my.getMessage('alert');
+
+		var time = 300;
+		
+		$('.popup__title').html(title);
+		$('.popup__msg').html(text);
+		$('.popup').fadeIn(time);
+
+		$('.popup__cross, .popup__bg').unbind('click').on('click', function() {
+			$('.popup').fadeOut(time, function() {
+				foo();
+			});
+		});
+	};
+	
+	
+	/**
+     * Декоратор для функции $.get, препятсвует множественному выполнению
+     * 
+     * @param {string} url - адрес обработчика
+     * @param {string} foo - функция выполняется при положительном обращении к обработчику
+     * @param {string} type - тип возвращаемых данных text|json
+	 * @param {string} fail - функция выполняется при неудачном обращении к обработчику
      */
 	my.get = function(url, foo, type, fail) {
 		type = type || 'text';
 		fail = fail || function() {
-			my.alert(my.getMessage('ajax_fail'));
+			alert(my.getMessage('ajax_fail'));
 		};
 
 		if (my.ajax == true) {
@@ -93,23 +222,24 @@
 				if (foo !== undefined) foo(data);
 			}, type).fail(function() {
 				my.ajax = true;
-				fail();
+				if (fail !== undefined) fail();
 			});
 		}
 	};
 	
-	/*
-     * @desc Декоратор для функции $.post, препятсвует множественному выполнению
-     * @param string url - адрес обработчика
-     * @param array parrams - массив параметров
-     * @param foo - функция выполняется при положительном обращении к обработчику
-     * @param string type - тип возвращаемых данных text|json
-	 * @param fail - функция выполняется при неудачном обращении к обработчику
+	/**
+     * Декоратор для функции $.post, препятсвует множественному выполнению
+     * 
+     * @param {string} url - адрес обработчика
+     * @param {Array} parrams - массив параметров
+     * @param {string} foo - функция выполняется при положительном обращении к обработчику
+     * @param {string} type - тип возвращаемых данных text|json
+	 * @param {string} fail - функция выполняется при неудачном обращении к обработчику
      */
 	my.post = function(url, parrams, foo, type, fail) {
 		type = type || 'text';
 		fail = fail || function() {
-			my.alert(my.getMessage('ajax_fail'));
+			alert(my.getMessage('ajax_fail'));
 		};
 
 		if (my.ajax == true) {
@@ -120,30 +250,28 @@
 				if (foo !== undefined) foo(data);
 			}, type).fail(function() {
 				my.ajax = true;
-				fail();
+				if (fail !== undefined) fail();
 			});
 		}
 	};
 
 	/**
-	 * @desc Абстракция для всплывающих уведомлений
-	 * @param {string} text - текст сообщения 
-	 * @param {function} foo - функция вызывается после закрытия всплывающего окна
+	 * Возвращает позицию прокрутки окна
+	 * поддержка IE
+	 * @returns {Number|*}
 	 */
-	my.alert = function(text, foo) {
-		foo = foo || function() {};
-		
-		alert(text);
-		foo();
+	my.scrollY = function() {
+		return window.scrollY || document.documentElement.scrollTop;
 	};
-
-	/*
-     * @desc Функция форматитрования числа, аналог php функции
-     * @param int|float number - исходное число
-     * @param float decimals - устанавливает число знаков после запятой
-     * @param float dec_point - устанавливает разделитель дробной части
-     * @param float thousands_sep - устанавливает разделитель тысяч
-     * @return int|float|string - возвращает отформатированное число
+	
+	/**
+     * Функция форматитрования числа, аналог php функции
+     * 
+     * @param {number} number - исходное число
+     * @param {number} decimals - устанавливает число знаков после запятой
+     * @param {number} dec_point - устанавливает разделитель дробной части
+     * @param {number} thousands_sep - устанавливает разделитель тысяч
+     * @return {string} - возвращает отформатированное число
      */
 	my.number_format = function ( number, decimals, dec_point, thousands_sep ) {  // Format a number with grouped thousands
 		//
@@ -183,17 +311,29 @@
 		return minus + km + kw + kd;
 	};
 
+	/**
+	 * Убирает все теги из текста, аналог php функции strip_tags
+	 * 
+	 * @param {string} str - исходная строка
+	 * @param {string} replace - на что меняем, по умолчанию пусто
+	 * @returns {XML|string|void}
+	 */
+	my.strip_tags = function(str, replace) {
+		replace = replace || '';
+		return str.replace(/<\/?[^>]+>/gi, replace);
+	};
 
 
-	/*
-     * @desc остаток от деления для дробных чисел
-     * @param float a - делимое
-     * @param float b - делитель
-     * @return float c - остаток от деления
+	/**
+     * остаток от деления для дробных чисел
+     * 
+     * @param {number} a - делимое
+     * @param {number} b - делитель
+     * @return {number} остаток от деления
      */
 	my.fmod = function(a, b) {
 		var m;
-        m = this.count_char_after_dot(a) > this.count_char_after_dot(b) ? this.count_char_after_dot(a) : this.count_char_after_dot(b);
+        m = my.count_char_after_dot(a) > my.count_char_after_dot(b) ? my.count_char_after_dot(a) : my.count_char_after_dot(b);
 
         var d = Math.pow(10, m);
         a *= d;
@@ -202,10 +342,11 @@
         return (a - Math.floor(a / b) * b) / d;
 	};
 	
-	/*
-     * @desc вспомогательная функция для функции - остаток от деления для дробных чисел
-     * @param float f - число
-     * @return float c - количество знаков после запятой
+	/**
+     * вспомогательная функция для функции - остаток от деления для дробных чисел
+     * 
+     * @param {number} f - число
+     * @return {number} количество знаков после запятой
      */
     my.count_char_after_dot = function(f) {
         var c = 0;
@@ -217,26 +358,28 @@
         return c;
     };
 	
-	/*
-     * @desc уберет экранирование html тегов
-     * @param jQuery obj - в каком теге применить функцию
+	/**
+     * уберет экранирование html тегов
+     * 
+     * @param {jQuery} obj - в каком теге применить функцию
      */
-	my.noScreening = function(obj) {
+	my.noScreening = function (obj) {
 		if (obj.length > 0) {
 			var str = obj.html(),
-				i = 0, j = 0, tmp ='', ch;
-			str = str.replace(RegExp("&lt;",'g'),'<').replace(RegExp("&gt;",'g'),'>').replace(RegExp("&amp;",'g'),'&').replace(RegExp("&quot;",'g'),'"');
-			
+				i = 0, j = 0, tmp = '', ch;
+			str = str.replace(new RegExp("&lt;", 'g'), '<').replace(new RegExp("&gt;", 'g'), '>').replace(new RegExp("&amp;", 'g'), '&').replace(new RegExp("&quot;", 'g'), '"');
+
 //		.replace(RegExp("»",'g'),'"').replace(RegExp("«",'g'),'"')
-			
-			obj.html(str);	
+
+			obj.html(str);
 		}
 	};
 	
-	/*
-     * @desc возвращает массив без повторяющихся значений
-     * @param array arr - массив
-	 * @return array - массив
+	/**
+     * возвращает массив без повторяющихся значений
+     * 
+     * @param {Array} arr - массив
+	 * @return {Array} - массив
      */
 	my.array_unique = function(arr) {
 		var sorter = {};
@@ -250,12 +393,14 @@
 		return arr;
 	};
 	
-	/*
-	 * @desc проверяет значение на нахождение в массиве
-	 * @param mixed needle - значение, которое ищем
-	 * @param array haystack - массив значений в котором ищем
-	 * @param bool strict - если true использует строгое сравенение
-	 * @return bool
+	
+	/**
+	 * проверяет значение на нахождение в массиве
+	 * 
+	 * @param {*} needle - значение, которое ищем
+	 * @param {Array} haystack - массив значений в котором ищем
+	 * @param {Boolean} strict - если true использует строгое сравенение
+	 * @return {Boolean}
 	 */
 	my.in_array = function (needle, haystack, strict) {
 		strict = strict || false;
@@ -270,23 +415,25 @@
 		return false;
 	};
 	
-	/*
-     * @desc возвращает слово в нужном склонении в зависимости от количества
-     * @param int count - количество объектов
-     * @param string one - склонение слово при единице
-     * @param string two - склонение слово при паре
-     * @param string five - склонение слово при пяти элементах
-	 * @return string слово
+	/**
+     * возвращает слово в нужном склонении в зависимости от количества
+     * 
+     * @param {number} count - количество объектов
+     * @param {string} one - склонение слово при единице
+     * @param {string} two - склонение слово при паре
+     * @param {string} five - склонение слово при пяти элементах
+	 * @return {string} слово в нужном склонении
      */
 	my.decl = function (count, one, two, five) {
-		mas = {1: one, 2: two, 5: five};
-		return mas[this.getDeclNum(count)];
+		var mas = {1: one, 2: two, 5: five};
+		return mas[my.getDeclNum(count)];
 	};
 
-	/*
-     * @desc возвращает цифру (1, 2, 5) в зависимости от количества
-     * @param int number - количество объектов
-	 * @return int число 1, 2, 5
+	/**
+     * возвращает цифру (1, 2, 5) в зависимости от количества
+     * 
+     * @param {number} number - количество объектов
+	 * @return {number} число 1, 2, 5
      */
 	my.getDeclNum = function (number) {
 		var n100 = number % 100;
@@ -302,14 +449,15 @@
 			return 5;
 	};
 	
-	/*
-	 * @desc возвращает массив со значениями GET параметров
-	 * @return array - массив
+	/**
+	 * возвращает массив со значениями GET параметров
+	 * 
+	 * @return {Object} - литерал
 	 */
 	my.getUrlVar = function() {
-		var tmp = new Array(),     // два вспомагательных
-			tmp2 = new Array(),     // массива
-			param = new Array();
+		var tmp = [],     // два вспомагательных
+			tmp2 = [],     // массива
+			param = {};
 		
 		var get = location.search;  // строка GET запроса
 		if(get != '') {
@@ -323,14 +471,15 @@
 		return param;
 	};
 
-	/*
-	 * @desc возвращает массив со значениями HASH параметров
-	 * @return array - массив
+	/**
+	 * возвращает массив со значениями HASH параметров
+	 * 
+	 * @return {Object} - литерал
 	 */
 	my.getUrlHash = function() {
-		var tmp = new Array(),     // два вспомагательных
-			tmp2 = new Array(),     // массива
-			param = new Array();
+		var tmp = [],     // два вспомагательных
+			tmp2 = [],     // массива
+			param = {};
 
 		var hash = location.hash;  // строка GET запроса
 		if(hash != '') {
@@ -345,15 +494,24 @@
 	};
 
 	/**
-	 * вернет секцию из текущего пути, или если num не задан то массив содержащий все секции 
+	 * вернет секцию из текущего пути, или если num не задан то массив содержащий все секции
 	 * @param num
 	 * @returns {string}
 	 */
 	my.getUrl = function(num) {
 		var arr = location.pathname.split('/');
 		arr.shift();
-		
-		return (num !== undefined) ? arr[num] : arr; 
+
+		return (num !== undefined) ? arr[num] : arr;
 	};
 	
+	/**
+	 * Возвращает целое число в 10 системе счисления, обертка для функции parseInt()
+	 * @param num {string}
+	 * @returns {number}
+	 */
+	my.parseInt = function(num) {
+		return parseInt(num, 10);
+	};
+
 })(window.my = window.my || {});
