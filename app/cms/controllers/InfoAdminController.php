@@ -7,7 +7,7 @@ class InfoAdminController extends AdminController {
 	}
 	
 	public function def() {
-		return View::make('admin.info.list');
+		return View::make('cms::info.list');
 	}
 	
 	public function php() {

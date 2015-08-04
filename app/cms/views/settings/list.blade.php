@@ -1,8 +1,8 @@
-@extends('admin.layouts.main')
+@extends('cms::layouts.main')
 
 @section('content')
 
-<h1>Пользователи → Список пользователей</h1>
+<h1>Настройки → Список настроек</h1>
 
 <br>
 
@@ -14,9 +14,12 @@
 $table = new ShakeTable($model);
 
 $table->setModule($module);
-$table->add('email', 'Эл. почта', 0);
-$table->add('created_at', 'Дата регистрации', 0, function($val, $obj) {
+$table->add('title', 'Описание', 0);
+$table->add('created_at', 'Дата создания', 0, function($val, $obj) {
 	return Date::parse($val)->format('j mm Y H:i:s'); 
+});
+$table->add('updated_at', 'Дата обновления', 0, function($val, $obj) {
+	return Date::parse($val)->format('j mm Y H:i:s');
 });
 	
 echo $table->html();

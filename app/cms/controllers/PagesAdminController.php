@@ -16,7 +16,7 @@ class PagesAdminController extends AdminController {
 			}
 		}
 		
-		return View::make('admin.'.$this->getModuleName().'.list')
+		return View::make('cms::'.$this->getModuleName().'.list')
 			->with(array('items' => $items, 'open_pages' => $open_pages));
 	}
 

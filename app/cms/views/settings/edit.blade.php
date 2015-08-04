@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('cms::layouts.main')
 
 @section('content')
 
@@ -12,7 +12,7 @@
 	
 		{{ Form::model($item) }}
 			
-			@include('admin.widgets.form.default', array('item' => $item))
+			@include('cms::widgets.form.default', array('item' => $item))
 		
 			<br>
 		
@@ -31,7 +31,7 @@
 		{{ Form::close() }}
 		
 		
-		@include('admin.widgets.stickyFiles.default', array('item' => $item))
+		@include('cms::widgets.stickyFiles.default', array('item' => $item))
 		
 	</div>
 </div>

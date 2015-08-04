@@ -1,18 +1,17 @@
-@extends('admin.layouts.main')
+@extends('cms::layouts.main')
 
 @section('content')
 
 <div class="container-fluid">
-
-	<h1>Пользователи → Редактирование Пользователя</h1>
+	<h1>Структура → Редактирование Страницы</h1>
 	
 	<br><br>
 	
 	<div class="row">
 	
-		{{ Form::model($item) }}
-			
-			@include('admin.widgets.form.default', array('item' => $item))
+		{{ Form::model($item, array('files' => true)) }}
+		
+			@include('cms::widgets.form.default', array('item' => $item))
 		
 			<br>
 		
@@ -22,18 +21,19 @@
 					&nbsp;&nbsp;
 					{{ Form::submit('Применить', array('class' => 'btn btn-default', 'name' => 'apply')) }}
 					
-					&nbsp;&nbsp;&nbsp; или &nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp; или &nbsp;&nbsp;&nbsp; 
 					
-					{{ link_to_route($module.'DefaultAdmin', 'Вернуться назад', Session::get('shake.url.'.$module)) }}
+					{{ link_to_route('pagesDefaultAdmin', 'Вернуться назад') }}
 				</div>
 			</div>
 	
 		{{ Form::close() }}
 		
 		
-		@include('admin.widgets.stickyFiles.default', array('item' => $item))
+		@include('cms::widgets.stickyFiles.default', array('item' => $item))
 		
 	</div>
 </div>
+
 
 @stop

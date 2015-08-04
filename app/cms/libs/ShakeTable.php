@@ -196,7 +196,7 @@ class ShakeTable {
 	 * @return $this|\Illuminate\View\View
 	 */
 	public function filter() {
-		return View::make('admin.widgets.filter.default')
+		return View::make('cms::widgets.filter.default')
 			->with(array('fields' => $this->filter_fields));
 	}
 	

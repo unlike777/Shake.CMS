@@ -27,7 +27,7 @@ class AdminController extends BaseController {
 			Session::set('shake.url.'.$module, $query);
 		}
 
-		return View::make('admin.'.$module.'.list')
+		return View::make('cms::'.$module.'.list')
 			->with(array(
 				'model' => $this->model,
 				'module' => $module,
@@ -75,7 +75,7 @@ class AdminController extends BaseController {
 			}
 		}
 
-		return View::make('admin.'.$module.'.edit')
+		return View::make('cms::'.$module.'.edit')
 			->with( array(
 				'item' => $obj,
 				'module' => $module,
@@ -170,7 +170,7 @@ class AdminController extends BaseController {
 			}
 		}
 
-		return View::make('admin.'.$module.'.edit')
+		return View::make('cms::'.$module.'.edit')
 			->with( array(
 				'item' => $obj,
 				'module' => $module,

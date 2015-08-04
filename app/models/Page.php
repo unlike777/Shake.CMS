@@ -115,7 +115,7 @@ class Page extends ShakeModel {
 	public function subTree() {
 		if ( $this->hasChilds() ) {
 			$items = Page::where('page_id', '=', $this->id)->where('id', '!=', $this->id)->orderBy('position')->get();
-			return View::make('admin.pages._tree')->with('items', $items)->render();
+			return View::make('cms::pages._tree')->with('items', $items)->render();
 		}
 		return '';
 	}
@@ -126,7 +126,7 @@ class Page extends ShakeModel {
 	 */
 	public function oneLine() {
 		if ( $this->exists() ) {
-			return View::make('admin.pages._one_line')->with('item', $this)->render();
+			return View::make('cms::pages._one_line')->with('item', $this)->render();
 		}
 		return '';
 	}

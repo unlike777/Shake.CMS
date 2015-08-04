@@ -89,7 +89,7 @@
 	?>
 	
 	<div class="sidebar">
-		@include('admin.widgets.mainMenu.default')
+		@include('cms::widgets.mainMenu.default')
 	</div>
 	
 	<div class="content">
