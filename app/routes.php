@@ -56,7 +56,7 @@ Route::group(array('prefix'=>'admin', 'before' => 'auth'), function()
 		array('as'=>'InfoPhpAdmin', 'uses'=>'InfoAdminController@php'));
 	
 	
-	$arr = array('users');
+	$arr = array('users', 'settings');
 	
 	foreach ($arr as $module) {
 		Route::any('/'.$module,
