@@ -148,7 +148,7 @@ class UsersController extends BaseController {
 					->where('provider', '=', $data['provider']);
 				
 				if (!($profile = $profile->first())) {
-					return Redirect::route('users.register', array('back_url' => Request::path()))
+					return Redirect::route('register', array('back_url' => Request::path()))
 						->withInput(array(
 							'email' => $data['email'],
 						));

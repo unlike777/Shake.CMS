@@ -18,6 +18,9 @@ $table->add('email', 'Эл. почта', 0);
 $table->add('created_at', 'Дата регистрации', 0, function($val, $obj) {
 	return Date::parse($val)->format('j mm Y H:i:s'); 
 });
+$table->add('updated_at', 'Дата обновления', 0, function($val, $obj) {
+	return Date::parse($val)->format('j mm Y H:i:s');
+});
 	
 echo $table->html();
 

@@ -11,3 +11,25 @@
 |
 */
 
+Route::filter('admin', function()
+{
+	if (Auth::guest())
+	{
+		if (Request::ajax())
+		{
+			return Response::make('Unauthorized', 401);
+		}
+		else
+		{
+			return Redirect::guest('login');
+		}
+	} else {
+		
+		$user = Auth::getUser();
+		
+		if ($user->group != 1) {
+			return Response::make('Permission denied', 401);
+		}
+		
+	}
+});

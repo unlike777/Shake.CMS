@@ -10,7 +10,7 @@
 |
 */
 
-Route::group(array('prefix'=>'admin', 'before' => 'auth'), function()
+Route::group(array('prefix'=>'admin', 'before' => 'admin'), function()
 {
 	
 	//pages
