@@ -25,6 +25,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::any('/users/soc/disconnect/{provider}', array('as' => 'users.soc.disconnect', 'uses' => 'UsersController@disconnect'));
 });
 
+Route::controller('password', 'RemindersController');
+
 Route::any('/login', array('as' => 'login', 'uses' => 'UsersController@login'));
 Route::any('/logout', array('as' => 'logout', 'uses' => 'UsersController@logout'));
 Route::any('/register', array('as' => 'register', 'uses' => 'UsersController@register'));

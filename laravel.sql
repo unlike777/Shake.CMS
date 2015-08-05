@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 04 2015 г., 19:52
+-- Время создания: Авг 05 2015 г., 18:05
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.4.35
 
@@ -66,7 +66,8 @@ CREATE TABLE IF NOT EXISTS `shake_migrations` (
 --
 
 INSERT INTO `shake_migrations` (`migration`, `batch`) VALUES
-('2015_08_04_164634_create_settings_table', 1);
+('2015_08_04_164634_create_settings_table', 1),
+('2015_08_05_145825_create_password_reminders_table', 2);
 
 -- --------------------------------------------------------
 
@@ -116,6 +117,20 @@ INSERT INTO `shake_pages` (`id`, `active`, `slug`, `title`, `content`, `template
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `shake_password_reminders`
+--
+
+CREATE TABLE IF NOT EXISTS `shake_password_reminders` (
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  KEY `password_reminders_email_index` (`email`),
+  KEY `password_reminders_token_index` (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `shake_settings`
 --
 
@@ -151,8 +166,8 @@ CREATE TABLE IF NOT EXISTS `shake_users` (
 --
 
 INSERT INTO `shake_users` (`id`, `active`, `email`, `password`, `group`, `remember_token`, `updated_at`, `created_at`) VALUES
-(1, 1, 'test@test.ru', '$2y$10$As6v9LOsscemc1MvyTIbSu8cm9sKCpTtx0prUWuir60RrJK3.2lx.', 1, 'ZRdWhkOObfqUcDpM8wBhMedorEGMSozi3apI8edhh9e39Tftsf2PRLQjYN6C', '2015-02-02 10:47:42', '2014-07-18 05:48:07'),
-(2, 1, 'asd@asd.ru', '$2y$10$zbpavwZ0rADr9pW2Mp3XOeXx7ssJIPJvRQN78T1frGvFQDxRsFfTC', 2, NULL, '2014-11-04 01:32:33', '2014-07-29 11:57:28'),
+(1, 1, 'test@test.ru', '$2y$10$As6v9LOsscemc1MvyTIbSu8cm9sKCpTtx0prUWuir60RrJK3.2lx.', 1, 'ZqhtzLu9X6FXLZ4f0cZCTlPvmeQvrGgGG4FSjiS9UExm5tyjSAcBClFOBrcH', '2015-08-05 08:24:13', '2014-07-18 05:48:07'),
+(2, 1, 'asd@asd.ru', '$2y$10$8PC2DWaZbZMTW7P5pmaCiuNCGQk/ZA9ZWWwN044bbudcdrw.9liy.', 2, '6Q7riwuIt3e2kZGZa8QzfApv1dRQYqHQHl6lRLsiQ3Qj20XQMIUeCGXqyu36', '2015-08-05 08:28:00', '2014-07-29 11:57:28'),
 (3, 1, 'asdqwesda@asd.ru', '$2y$10$g5JvyP0xyYGCTqGcJrQVtegTjaaL68cGxq9rU75Hkg9PuVexDcQQG', 0, NULL, '2014-10-25 09:32:23', '2014-07-29 11:58:03'),
 (4, 1, 'zxc@zxc.ru', 'asidsfoadso', 0, NULL, '2014-10-21 00:17:13', '2014-07-29 11:59:08'),
 (7, 1, 'asdfasdfasdf@asdfasdfasdf.ru', '$2y$10$7Jv1i03M2ZLVcAYXOhDIyuOGceTr/jU2sVmws0nZqFAXxrBN/Eh7q', 0, 'tm0FqDswFl5yR75h6FOLxLbSaZ2NydXNw3r4jwrHgyna9dMspBGK67nQqN3H', '2014-10-21 00:17:13', '2014-09-28 00:00:12'),
