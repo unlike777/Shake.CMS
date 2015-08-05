@@ -8,7 +8,9 @@ class UsersController extends BaseController {
 		 * @var $validation \Illuminate\Validation\Validator
 		 */
 		
-		if (Input::has('signin')) {
+		session_start();
+		
+		if (!empty($_POST)) {
 			$data = Input::only(array('email', 'password'));
 			$validation = User::getModel()->validate($data, 'onAuth');
 
@@ -18,7 +20,13 @@ class UsersController extends BaseController {
 					->withInput(Input::all());
 			}
 
-			if (Auth::attempt($data)) {
+			if (Auth::attempt($data, Input::has('remember_me'))) {
+				
+				$user = Auth::getUser();
+				if ($user->group == 1) {
+					$_SESSION['is_admin'] = 1;
+				}
+				
 				if (Input::has('back_url')) {
 					return Redirect::to(Input::get('back_url', '/'));
 				} else {
@@ -36,7 +44,12 @@ class UsersController extends BaseController {
 
 	public function logout() {
 		
+		session_start();
+		
 		Auth::logout();
+		if (isset($_SESSION['is_admin'])) {
+			unset($_SESSION['is_admin']);
+		}
 		return Redirect::back();
 	}
 	
