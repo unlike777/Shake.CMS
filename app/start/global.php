@@ -100,7 +100,11 @@ require app_path().'/cms/composers.php';
 
 require app_path().'/cms/helpers.php';
 
+require app_path().'/cms/validators.php';
+
 
 require app_path().'/filters.php';
 
 require app_path().'/composers.php';
+
+require app_path().'/validators.php';
