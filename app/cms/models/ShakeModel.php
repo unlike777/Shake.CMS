@@ -146,12 +146,23 @@ class ShakeModel extends Eloquent {
 		}
 		return array();
 	}
-
+	
+	/**
+	 * Возвратит сео текст для данного объекта
+	 * @return array|\Illuminate\Database\Eloquent\Relations\MorphMany
+	 */
+	public function seoText() {
+		return $this->morphOne('SeoText', 'parent');
+	}
+	
 	/**
 	 * @return bool|null
 	 * @throws Exception
 	 */
 	public function delete() {
+		
+		$this->seoText()->delete();
+		
 		foreach ($this->getFileFields() as $key) {
 			Resizer::image($this->{$key})->deleteCache();
 			@unlink(public_path().$this->{$key});

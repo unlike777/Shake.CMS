@@ -11,6 +11,8 @@
 	
 		{{ Form::model($item, array('files' => true)) }}
 		
+			@include('cms::widgets.seoText.default', array('item' => $item))
+		
 			@include('cms::widgets.form.default', array('item' => $item))
 		
 			<br>

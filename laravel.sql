@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 05 2015 г., 18:05
+-- Время создания: Авг 08 2015 г., 08:11
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.4.35
 
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `shake_pages` (
   KEY `page_id` (`page_id`),
   KEY `position` (`position`),
   KEY `slug` (`slug`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Дамп данных таблицы `shake_pages`
@@ -109,10 +109,11 @@ INSERT INTO `shake_pages` (`id`, `active`, `slug`, `title`, `content`, `template
 (9, 1, 'wqeqweqweqwe', 'wqeqweqweqwe', '<p>qweqweqweqwe</p>\r\n', '', 8, '2014-10-25 07:34:22', '2014-06-26 12:37:50', 0, NULL),
 (10, 1, 'zqzqzqzq', 'zqzqzqzq', '<p>zqzqzqzqzq</p>\r\n', '', 2, '2014-10-25 07:34:43', '2014-06-26 12:43:33', 0, NULL),
 (11, 0, 'iopiopiopiop', 'iopiopiopiop', '<p>iopiopiopiopiopiopiopiopiopiopiop</p>\r\n', '', 0, '2015-02-02 10:47:29', '2014-06-26 12:47:19', 4, NULL),
-(12, 1, 'eshche-odna-stranica', 'Еще одна страница', '<p>хз что тут написать</p>\r\n', '', 0, '2015-02-02 10:47:29', '2014-09-27 23:42:41', 7, NULL),
+(12, 1, 'eshche-odna-stranica', 'Еще одна страница', '<p>хз что тут написать</p>\r\n', 'default', 0, '2015-08-07 23:10:03', '2014-09-27 23:42:41', 7, NULL),
 (13, 1, 'uzhe-vtoraya-stranica', 'Уже вторая страница', '<p>ААААААА чо писать то епта</p>\r\n', '', 0, '2015-02-02 10:47:29', '2014-09-28 00:02:50', 8, NULL),
 (14, 1, 'testiruem-novyi-funkcional', 'Тестируем новый функционал', '<p>Тест прошел успешно</p>\r\n', '', 0, '2015-02-02 10:47:29', '2014-09-28 03:04:22', 9, NULL),
-(15, 1, 'testovaya-stranica-2', 'Тестовая страница 2', '<p>что это за бред ты тут написал?</p>\r\n', '', 0, '2014-10-25 07:24:04', '2014-10-25 07:23:27', 0, NULL);
+(15, 1, 'testovaya-stranica-2', 'Тестовая страница 2', '<p>что это за бред ты тут написал?</p>\r\n', '', 0, '2014-10-25 07:24:04', '2014-10-25 07:23:27', 0, NULL),
+(16, 1, 'testing', 'Тестинг', '<p>Лорем ипсум</p>\r\n', 'default', 0, '2015-08-07 23:09:50', '2015-08-07 23:09:50', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -127,6 +128,34 @@ CREATE TABLE IF NOT EXISTS `shake_password_reminders` (
   KEY `password_reminders_email_index` (`email`),
   KEY `password_reminders_token_index` (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `shake_seo_texts`
+--
+
+CREATE TABLE IF NOT EXISTS `shake_seo_texts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `parent_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `seo_texts_parent_id_index` (`parent_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Дамп данных таблицы `shake_seo_texts`
+--
+
+INSERT INTO `shake_seo_texts` (`id`, `title`, `keywords`, `description`, `parent_id`, `parent_type`, `created_at`, `updated_at`) VALUES
+(1, 'Страница для тестирования', 'Тестирование, страница, тест, seo, 1', 'Тестируют на этой странице', 7, 'Page', '2015-08-07 23:08:35', '2015-08-07 23:08:49'),
+(2, 'Лялялял тополя', 'Вот такие вот дела', 'Мето опииииисаниеееее', 16, 'Page', '2015-08-07 23:09:50', '2015-08-07 23:09:50'),
+(3, '', '', '', 12, 'Page', '2015-08-07 23:10:03', '2015-08-07 23:10:03');
 
 -- --------------------------------------------------------
 

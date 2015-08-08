@@ -58,11 +58,27 @@ class AdminController extends BaseController {
 					->with('message', array('title' => 'Ошибка', 'text' => $validation->errors()->first() ))
 					->withInput(Input::except($obj->getFileFields()));
 			}
-
+			
 			$obj->fill($data);
 			$obj->saveUploadFiles($data);
 
 			if ($obj->save()) {
+				
+				if (Input::has('seo_block_enable')) {
+					
+					$seo = $obj->seoText()->first();
+					if (!$seo) {
+						$seo = new SeoText();
+					}
+					
+					$seo->title = Input::get('seo_title');
+					$seo->keywords = Input::get('seo_keywords');
+					$seo->description = Input::get('seo_description');
+					
+					$obj->seoText()->save($seo);
+					
+				}
+				
 				if (Input::has('save')) {
 					return Redirect::route($module.'DefaultAdmin', Session::get('shake.url.'.$module));
 				} else {
@@ -158,6 +174,22 @@ class AdminController extends BaseController {
 			$obj->saveUploadFiles($data);
 
 			if ($obj->save()) {
+				
+				if (Input::has('seo_block_enable')) {
+					
+					$seo = $obj->seoText()->first();
+					if (!$seo) {
+						$seo = new SeoText();
+					}
+					
+					$seo->title = Input::get('seo_title');
+					$seo->keywords = Input::get('seo_keywords');
+					$seo->description = Input::get('seo_description');
+					
+					$obj->seoText()->save($seo);
+					
+				}
+				
 				if (Input::has('save')) {
 					return Redirect::route($module.'DefaultAdmin', Session::get('shake.url.'.$module));
 				} else {
