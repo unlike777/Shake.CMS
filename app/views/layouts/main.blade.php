@@ -2,7 +2,11 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Laravel PHP Framework</title>
+	<title>{{ SEO::title() }}</title>
+	
+	<meta name="keywords" content="{{ SEO::keywords() }}">
+	<meta name="description" content="{{ SEO::description() }}">
+	
 </head>
 <body>
 	@yield('content')

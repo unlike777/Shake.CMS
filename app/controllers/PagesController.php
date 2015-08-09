@@ -8,7 +8,9 @@ class PagesController extends BaseController {
 	
 	public function pages($slug) {
 		$item = Page::where('slug', '=', $slug)->firstOrFail();
-
+		
+		SEO::set($item);
+		
 		$templ = empty($item->template) ? 'default' : $item->template;
 		
 		return View::make('pages.templates.'.$templ, array('item' => $item));

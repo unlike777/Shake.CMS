@@ -2,7 +2,7 @@
 
 class Page extends ShakeModel {
 	
-	protected $fillable = array('active', 'title', 'content', 'file', 'slug', 'template');
+	protected $fillable = array('active', 'title', 'content', 'file', 'slug', 'template', 'is_home');
 
 	protected $attributes = array(
 		'page_id' => 0,
@@ -21,6 +21,10 @@ class Page extends ShakeModel {
 		'active' => array(
 			'type' => 'bool',
 			'title' => 'Активность',
+		),
+		'is_home' => array(
+			'type' => 'bool',
+			'title' => 'Домашняя?',
 		),
 		'content' => array(
 			'type' => 'ckeditor',
@@ -49,9 +53,13 @@ class Page extends ShakeModel {
 	public function save(array $options = array()) {
 
 		if ($this->is_home == 1) {
-			$data = Page::where('is_home', '=', 1)->get();
-
-			foreach ($data as $item) {
+			$data = Page::where('is_home', '=', 1);
+			
+			if (!empty($this->id)) {
+				$data->where('id', '<>', $this->id);
+			}
+			
+			foreach ($data->get() as $item) {
 				$item->is_home = 0;
 				$item->save();
 			}
@@ -173,5 +181,9 @@ class Page extends ShakeModel {
 		$this->save();
 		
 		return $this;
+	}
+	
+	public function scopePubl($query) {
+		return $query->where('active', '=', 1);
 	}
 }
