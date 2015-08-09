@@ -78,4 +78,4 @@ body{padding-top: 51px; background-color: #222;}
 .content .row .col-md-8 .col-xs-6:nth-child(2n+1){clear: both;}
 
 
-.seo_block{background: #E4FBE5; padding: 15px 15px; margin: 15px 0;}
+.seo_block{background: #E4FBE5; padding: 15px 15px; margin: 15px 0; border: 1px dashed #A5DAA7;}
