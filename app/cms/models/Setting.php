@@ -1,5 +1,16 @@
 <?php
 
+/*
+Schema::dropIfExists('settings');
+Schema::create('settings', function(\Illuminate\Database\Schema\Blueprint $table)
+{
+	$table->integer('id', true);
+	$table->string('title');
+	$table->text('text');
+	$table->timestamps();
+});
+*/
+
 class Setting extends ShakeModel {
 	
 	protected $fillable = array('title', 'text');
