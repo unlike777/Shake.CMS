@@ -38,7 +38,7 @@
 						$(function () {
 							$('#datetimepicker_{{ $fname }}').datetimepicker({
 								locale: 'ru',
-								format: 'YYYY-MM-DD HH:mm'
+								format: 'YYYY-MM-DD HH:mm:ss'
 							});
 						});
 					</script>
@@ -63,8 +63,8 @@
 				</div>
 				
 				<script type="text/javascript">
-					  var ckeditor = CKEDITOR.replace('{{$fname}}');
-				  </script>
+					var ckeditor = CKEDITOR.replace('{{$fname}}');
+				</script>
 				
 			@elseif ($field['type'] == 'file')
 	
@@ -78,6 +78,7 @@
 					@else
 						<div class="col-xs-6">
 							<div class="form-group">
+								{{ Form::label($fname, $field['title']) }} <br>
 								<a href="{{ $item->{$fname} }}" target="_blank">
 	
 									<?
