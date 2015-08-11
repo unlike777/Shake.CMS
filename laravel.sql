@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 09 2015 г., 15:05
+-- Время создания: Авг 11 2015 г., 22:05
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.4.35
 
@@ -105,7 +105,7 @@ INSERT INTO `shake_pages` (`id`, `active`, `slug`, `title`, `content`, `template
 (4, 1, 'erer-qer-qwer', '1234123412341', '<p>2341234123412341</p>\r\n', '', 2, 0, '2014-10-25 07:34:48', '2014-06-21 23:43:36', 1, NULL),
 (5, 0, 'fa-sdf-asdf-asdf', '1234123412341', '<p>2341234123412341</p>\r\n', '', 0, 0, '2015-02-02 10:47:29', '2014-06-22 00:24:33', 3, NULL),
 (6, 0, '1234123412341', '1234123412341', '<p>2341234123412341</p>\r\n', '', 0, 0, '2015-02-02 10:47:29', '2014-06-26 12:08:51', 2, NULL),
-(7, 1, 'stranica-dlya-testirovaniya', 'Страница для тестирования', '<p>Текст который содержит текст</p>\r\n', 'second', 0, 1, '2015-08-09 04:49:03', '2014-06-26 12:12:43', 0, NULL),
+(7, 1, 'stranica-dlya-testirovaniya', 'Страница для тестирования', '<p>Текст который содержит текст</p>\r\n', 'second', 0, 1, '2015-08-10 11:05:58', '2014-06-26 12:12:43', 0, ''),
 (8, 0, 'icukicukicukicuk', 'йцукйцукйцукйцук', '<p>йцукйцукйцукйцук</p>\r\n', 'default', 7, 0, '2014-11-04 01:52:20', '2014-06-26 12:36:58', 1, NULL),
 (9, 1, 'wqeqweqweqwe', 'wqeqweqweqwe', '<p>qweqweqweqwe</p>\r\n', '', 8, 0, '2014-10-25 07:34:22', '2014-06-26 12:37:50', 0, NULL),
 (10, 1, 'zqzqzqzq', 'zqzqzqzq', '<p>zqzqzqzqzq</p>\r\n', '', 2, 0, '2014-10-25 07:34:43', '2014-06-26 12:43:33', 0, NULL),
@@ -129,6 +129,22 @@ CREATE TABLE IF NOT EXISTS `shake_password_reminders` (
   KEY `password_reminders_email_index` (`email`),
   KEY `password_reminders_token_index` (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `shake_regs`
+--
+
+CREATE TABLE IF NOT EXISTS `shake_regs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `key` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `regs_key_index` (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
