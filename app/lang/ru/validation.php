@@ -100,6 +100,27 @@ return array(
 	|
 	*/
 
-	'attributes' => array(),
+	'attributes' => [
+		'email' 					=> 'электронный адрес',
+		'password' 					=> 'пароль',
+		'password_confirmation' 	=> 'подтверждение пароля',
+		'password2' 				=> 'подтверждение пароля',
+		'title' 					=> 'заголовок',
+		'image' 					=> 'изображение',
+		'content' 					=> 'содержание',
+		'notice' 					=> 'анонс',
+		'name' 						=> 'имя',
+		'surname' 					=> 'фамилия',
+		'price' 					=> 'цена',
+		'country' 					=> 'страна',
+		'phone' 					=> 'телефон',
+		'address' 					=> 'адрес',
+		'template' 					=> 'шаблон',
+		'slug' 						=> 'псевдо адрес',
+		'value' 					=> 'значение',
+		'text' 						=> 'текст',
+		'link' 						=> 'ссылка',
+		'group' 					=> 'группа',
+	],
 
 );
