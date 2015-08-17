@@ -10,6 +10,8 @@
 	<link type="text/css" rel="stylesheet" href="{{ uncache('cms/bootstrap/css/bootstrap-datetimepicker.min.css') }}">
 	
 	<link type="text/css" rel="stylesheet" href="{{ uncache('cms/style.css') }}">
+	
+	<link rel="SHORTCUT ICON" href="/cms/favicon.ico">
 
 	<script type="text/javascript" src="{{ uncache('cms/libs/libs.js') }}"></script>
 	<script type="text/javascript" src="{{ uncache('cms/libs/nestable/jquery.nestable.js') }}"></script>
