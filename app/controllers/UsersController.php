@@ -55,7 +55,7 @@ class UsersController extends BaseController {
 	
 	public function register() {
 		
-		if (Input::has('signup')) {
+		if (!empty($_POST)) {
 			
 			$obj = new User();
 			
