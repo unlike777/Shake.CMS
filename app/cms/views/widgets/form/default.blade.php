@@ -126,6 +126,7 @@
 				
 				<div class="col-lg-6">
 					<div class="form-group">
+						{{ Form::hidden($fname, 0) }}
 						{{ Form::checkbox($fname, 1, NULL, array('id' => $fname)) }}
 						{{ Form::label($fname, $field['title']) }}
 					</div>
