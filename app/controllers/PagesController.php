@@ -10,6 +10,7 @@ class PagesController extends BaseController {
 		$item = Page::where('slug', '=', $slug)->firstOrFail();
 		
 		SEO::set($item);
+		Menu::add($item);
 		
 		$templ = empty($item->template) ? 'default' : $item->template;
 		
