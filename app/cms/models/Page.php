@@ -101,9 +101,12 @@ class Page extends ShakeModel {
 		return '/pages/'.$this->slug;
 	}
 	
+	public function pages() {
+		return $this->hasMany('Page');
+	}
 	
 	public function hasChilds() {
-		$count = Page::hasMany('Page')->take(1)->get()->count();
+		$count = $this->pages()->count();
 		return $count > 0 ? true : false;
 	}
 	
@@ -185,5 +188,14 @@ class Page extends ShakeModel {
 	
 	public function scopePubl($query) {
 		return $query->where('active', '=', 1);
+	}
+	
+	public function delete() {
+		
+		foreach ($this->pages()->get() as $page) {
+			$page->delete();
+		}
+		
+		return parent::delete();
 	}
 }
