@@ -111,6 +111,7 @@ return array(
 		'notice' 					=> 'анонс',
 		'name' 						=> 'имя',
 		'surname' 					=> 'фамилия',
+		'fio' 						=> 'ФИО',
 		'price' 					=> 'цена',
 		'country' 					=> 'страна',
 		'phone' 					=> 'телефон',
