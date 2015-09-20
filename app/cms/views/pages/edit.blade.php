@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="container-fluid">
+	
 	<h1>Структура → Редактирование Страницы</h1>
 	
 	<br><br>

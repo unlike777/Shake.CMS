@@ -10,7 +10,7 @@
 	
 	<div class="row">
 	
-		{{ Form::model($item) }}
+		{{ Form::model($item, array('files' => true)) }}
 			
 			@include('cms::widgets.form.default', array('item' => $item))
 		
