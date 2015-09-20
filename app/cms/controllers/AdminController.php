@@ -7,14 +7,14 @@ class AdminController extends BaseController {
 	 * @var $model Eloquent|Page
 	 */
 	protected $model;
-
+	
 	/**
 	 * Вернет название модуля - название модели + "s", в нижем регистре
 	 * используется для редиректов и вьюх
 	 * @return string
 	 */
 	public function getModuleName() {
-		return strtolower(get_class($this->model)).'s';
+		return empty($this->model->module_name) ? strtolower(get_class($this->model)).'s' : $this->model->module_name;
 	}
 
 	public function def() {
