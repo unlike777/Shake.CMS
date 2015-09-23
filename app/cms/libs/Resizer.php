@@ -17,6 +17,8 @@ class Resizer {
 	public function __construct($img = '') {
 		if (is_file($this->public_path().$img)) {
 			self::$img = $img;
+		} else {
+			self::$img = '';
 		}
 	}
 
