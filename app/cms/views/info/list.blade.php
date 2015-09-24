@@ -10,6 +10,14 @@
 	iframe{border: 0; width: 100%; height: 750px;}
 </style>
 
-<iframe src="{{ route('infoPhpAdmin') }}"></iframe>
+<iframe id="iframe" src="{{ route('infoPhpAdmin') }}" scrolling="no">></iframe>
+
+<script>
+	$('#iframe').load(function() {
+		var $iframe = $(this);
+		var $iframe_body = $iframe.contents().find('body');
+		$iframe.height($iframe_body[0].scrollHeight);
+	});
+</script>
 
 @stop
