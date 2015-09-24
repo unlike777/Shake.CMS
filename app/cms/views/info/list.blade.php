@@ -10,6 +10,6 @@
 	iframe{border: 0; width: 100%; height: 750px;}
 </style>
 
-<iframe src="{{ route('InfoPhpAdmin') }}"></iframe>
+<iframe src="{{ route('infoPhpAdmin') }}"></iframe>
 
 @stop

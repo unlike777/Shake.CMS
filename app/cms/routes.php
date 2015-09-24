@@ -39,10 +39,10 @@ Route::group(array('prefix'=>'admin', 'before' => 'admin'), function()
 		array('as'=>'pagesTestAdmin', 'uses'=>'PagesAdminController@test'));
 	
 	Route::any('/info',
-		array('as'=>'InfoDefaultAdmin', 'uses'=>'InfoAdminController@def'));
+		array('as'=>'infoDefaultAdmin', 'uses'=>'InfoAdminController@def'));
 	
 	Route::any('/info/php',
-		array('as'=>'InfoPhpAdmin', 'uses'=>'InfoAdminController@php'));
+		array('as'=>'infoPhpAdmin', 'uses'=>'InfoAdminController@php'));
 	
 	
 	$arr = array('users', 'settings');
