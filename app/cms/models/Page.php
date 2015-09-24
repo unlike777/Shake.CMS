@@ -68,6 +68,15 @@ class Page extends ShakeModel {
 		return parent::save($options);
 	}
 	
+	public static function boot() {
+		parent::boot();
+		
+		static::creating(function($obj) {
+			$pos = self::max('position') + 1;
+			$obj->position = $pos;
+		});
+	}
+	
 	/**
 	 * @param $data
 	 * @param $behavior
