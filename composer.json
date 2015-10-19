@@ -9,6 +9,7 @@
 		"ivanlemeshev/laravel-cyrillic-slug": "1.0.*",
 		"intervention/imagecache": "2.*",
 		"mews/captcha": "1.0.*",
+	  	"mews/purifier": "dev-master-l4",
 		"barryvdh/laravel-debugbar": "~1.8"
 	},
 	"autoload": {
