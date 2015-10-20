@@ -1,10 +1,23 @@
 <?php
 
-class StickyFile extends ShakeModel {
+/*
+Schema::dropIfExists('fields');
+Schema::create('fields', function(\Illuminate\Database\Schema\Blueprint $table)
+{
+	$table->integer('id', true);
+	$table->text('text');
+	$table->string('file')->nullable();
+	$table->string('field');
+	$table->integer('parent_id')->index();
+	$table->string('parent_type');
+	$table->boolean('is_file');
+	$table->timestamps();
+});
+*/
 
-	protected $table = 'files';
+class Field extends ShakeModel {
 	
-	protected $fillable = array('file', 'field', 'parent_id', 'parent_type');
+	protected $fillable = array('text', 'file', 'field', 'parent_id', 'parent_type', 'is_file');
 
 	protected $attributes = array();
 	
@@ -21,9 +34,17 @@ class StickyFile extends ShakeModel {
 			'type' => 'file',
 			'title' => 'Файл',
 		),
+		'text' => array(
+			'type' => 'textarea',
+			'title' => 'Текст',
+		),
 		'field' => array(
 			'type' => 'text',
 			'title' => 'Поле',
+		),
+		'is_file' => array(
+			'type' => 'bool',
+			'title' => 'Поле файловое?',
 		),
 	);
 	
@@ -32,7 +53,9 @@ class StickyFile extends ShakeModel {
 		$rules = array(
 			'parent_type' => 'required',
 			'parent_id' => 'required|integer',
-			'file' => 'required|max:'.(1024*5),
+			'text' => '',
+			'is_file' => 'boolean',
+			'file' => 'max:'.(1024*5),
 			'field' => 'required|max:255',
 		);
 		
