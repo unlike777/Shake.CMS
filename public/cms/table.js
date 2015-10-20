@@ -93,6 +93,15 @@ $(document).ready(function() {
 
 		return false;
 	});
+
+	$('.table__row').on('dblclick', function(e) {
+		var $this = $(this),
+			url = $this.attr('data-edit');
+
+		if (url) {
+			location.href = url;
+		}
+	});
 	
 });
 

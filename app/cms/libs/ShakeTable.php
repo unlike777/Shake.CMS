@@ -160,8 +160,8 @@ class ShakeTable {
 			.'&nbsp;&nbsp;&nbsp;'
 			.link_to_route($this->module.'DeleteAdmin', '', array('id' => $item->id), array('class' => 'glyphicon glyphicon-trash table__row_delete'))
 			.'</td>';
-		
-		$ret = '<tr data-id="'.$item->id.'">'.$ret.'</tr>';
+
+		$ret = '<tr class="table__row" data-id="'.$item->id.'" data-edit="'.route($this->module.'EditAdmin', array('id' => $item->id)).'">'.$ret.'</tr>';
 		
 		return $ret;
 	}
