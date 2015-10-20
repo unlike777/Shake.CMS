@@ -7,25 +7,27 @@ class StickyFile extends ShakeModel {
 	protected $fillable = array('file', 'field');
 
 	protected $attributes = array();
-
-	protected $rules = array(
-//		'title' => 'required|min:2',
-//		'content' => 'required|min:5',
-//		'active' => 'boolean',
-		'field' => 'required|max:255',
-	);
-
-	protected $file_rules = array(
-		'file' => 'max:1048576',
-	);
 	
 	protected $fields = array(
 		'file' => array(
 			'type' => 'file',
 			'title' => 'Файл',
 		),
+		'field' => array(
+			'type' => 'text',
+			'title' => 'Поле',
+		),
 	);
-
+	
+	public function validate($data, $behavior = 'default') {
+		
+		$rules = array(
+			'file' => 'required|max:'.(1024*5),
+			'field' => 'required|max:255',
+		);
+		
+		return Validator::make($data, $rules);
+	}
 
 	/**
 	 * Вернет родителя к которому прикреплен файл
