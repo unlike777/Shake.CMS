@@ -1,5 +1,5 @@
 
-@if (!empty($item->id))
+@if ($item->exists)
 		
 	<div class="clear"></div>
 		
