@@ -151,6 +151,14 @@ class ShakeModel extends Eloquent {
 	 * Возвратит сео текст для данного объекта
 	 * @return array|\Illuminate\Database\Eloquent\Relations\MorphMany
 	 */
+	public function uniqueFields() {
+		return $this->MorphMany('Field', 'parent');
+	}
+	
+	/**
+	 * Возвратит сео текст для данного объекта
+	 * @return array|\Illuminate\Database\Eloquent\Relations\morphOne
+	 */
 	public function seoText() {
 		return $this->morphOne('SeoText', 'parent');
 	}

@@ -30,8 +30,8 @@ class StickyFile extends ShakeModel {
 	public function validate($data, $behavior = 'default') {
 		
 		$rules = array(
-			'parent_type' => 'required',
-			'parent_id' => 'required|integer',
+//			'parent_type' => 'required',
+//			'parent_id' => 'required|integer',
 			'file' => 'required|max:'.(1024*5),
 			'field' => 'required|max:255',
 		);

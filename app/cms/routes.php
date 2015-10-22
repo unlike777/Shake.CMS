@@ -13,27 +13,11 @@
 Route::group(array('prefix'=>'admin', 'before' => 'admin'), function()
 {
 	
-	//pages
-	Route::any('/', 
-		array('as'=>'pagesDefaultAdmin', 'uses'=>'PagesAdminController@def'));
-	Route::any('/pages/edit/{id}',  
-		array('as'=>'pagesEditAdmin', 'uses'=>'PagesAdminController@edit'));
-	Route::any('/pages/create',
-		array('as'=>'pagesCreateAdmin', 'uses'=>'PagesAdminController@create'));
-	Route::any('/pages/active',
-		array('as'=>'pagesActiveAdmin', 'uses'=>'PagesAdminController@active'));
+	//pages additional
 	Route::any('/pages/position',
 		array('as'=>'pagesPositionAdmin', 'uses'=>'PagesAdminController@position'));
-	Route::any('/pages/delete',
-		array('as'=>'pagesDeleteAdmin', 'uses'=>'PagesAdminController@delete'));
 //	Route::any('/pages/tree',
 //		array('as'=>'pagesTreeAdmin', 'uses'=>'PagesAdminController@tree'));
-	
-	// множественное прикрепление файлов
-	Route::any('/pages/upload/{id}',
-		array('as'=>'pagesUploadAdmin', 'uses'=>'PagesAdminController@upload'));
-	Route::any('/pages/upload_delete',
-		array('as'=>'pagesUploadDelAdmin', 'uses'=>'PagesAdminController@upload_delete'));
 
 	Route::any('/pages/test',
 		array('as'=>'pagesTestAdmin', 'uses'=>'PagesAdminController@test'));
@@ -45,7 +29,7 @@ Route::group(array('prefix'=>'admin', 'before' => 'admin'), function()
 		array('as'=>'infoPhpAdmin', 'uses'=>'InfoAdminController@php'));
 	
 	
-	$arr = array('users', 'settings');
+	$arr = array('pages', 'users', 'settings');
 	
 	foreach ($arr as $module) {
 		Route::any('/'.$module,
@@ -58,6 +42,20 @@ Route::group(array('prefix'=>'admin', 'before' => 'admin'), function()
 			array('as'=>$module.'DeleteAdmin',  'uses'=>ucfirst($module).'AdminController@delete'));
 		Route::any('/'.$module.'/active',
 			array('as'=>$module.'ActiveAdmin',  'uses'=>ucfirst($module).'AdminController@active'));
+		
+		// множественное прикрепление файлов
+		Route::any('/'.$module.'/upload/{id}',
+			array('as'=>$module.'UploadAdmin', 'uses'=>ucfirst($module).'AdminController@upload'));
+		Route::any('/'.$module.'/upload_delete',
+			array('as'=>$module.'UploadDelAdmin', 'uses'=>ucfirst($module).'AdminController@upload_delete'));
+		
+		// Уникальные поля
+		Route::any('/'.$module.'/field_create/{parent_id}',
+			array('as'=>$module.'UploadAdmin', 'uses'=>ucfirst($module).'AdminController@field_create'));
+		Route::any('/'.$module.'/field_update/{id}',
+			array('as'=>$module.'UploadAdmin', 'uses'=>ucfirst($module).'AdminController@field_update'));
+		Route::any('/'.$module.'/field_delete/{id}',
+			array('as'=>$module.'UploadAdmin', 'uses'=>ucfirst($module).'AdminController@field_delete'));
 	}
 	
 });

@@ -241,5 +241,77 @@ class AdminController extends BaseController {
 
 		return Response::json(array('error' => 0));
 	}
-
+	
+	
+	
+	public function	field_create($parent_id) {
+		$field = new Field();
+		
+		/**
+		 * @var $parent ShakeModel
+		 */
+		$parent = $this->model->find($parent_id);
+		
+		if (!$parent) {
+			return Response::json(array('error' => 1, 'data' => 'Родитель не найден'));
+		}
+		
+		$data = $field->prepareData(Input::all());
+		$validation = $field->validate($data);
+		
+		if ($validation->fails()) {
+			return Response::json(array('error' => 1, 'data' => $validation->errors()->first()));
+		}
+		
+		$field->fill($data);
+		
+		if ($field->save()) {
+			$parent->uniqueFields()->save($field);
+			return Response::json(array('error' => 0, 'data' => View::make('cms::widgets.fields.default', array('item' => $parent))->render()));
+		}
+		
+		return Response::json(array('error' => 1, 'data' => 'Сохранить файл не удалось'));
+	}
+	
+	public function	field_update($id) {
+		/**
+		 * @var $field Field
+		 */
+		$field = Field::find($id);
+		
+		if (!$field) {
+			return Response::json(array('error' => 1, 'data' => 'Поле не найдено!'));
+		}
+		
+		$data = $field->prepareData(Input::all());
+		$validation = $field->validate($data);
+		
+		if ($validation->fails()) {
+			return Response::json(array('error' => 1, 'data' => $validation->errors()->first()));
+		}
+		
+		$field->fill($data);
+		
+		if ($field->save()) {
+			return Response::json(array('error' => 0, 'data' => View::make('cms::widgets.fields.default', array('item' => $field->parent))->render()));
+		}
+		
+		return Response::json(array('error' => 1, 'data' => 'Сохранить файл не удалось'));
+	}
+	
+	public function	field_delete($id) {
+		/**
+		 * @var $field Field
+		 */
+		$field = Field::find($id);
+		
+		if (!$field) {
+			return Response::json(array('error' => 1, 'data' => 'Поле не найдено!'));
+		}
+		
+		$field->delete();
+		
+		return Response::json(array('error' => 0, 'data' => View::make('cms::widgets.fields.default', array('item' => $field->parent))->render()));
+	}
+	
 }

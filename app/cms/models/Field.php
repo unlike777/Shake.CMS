@@ -51,8 +51,8 @@ class Field extends ShakeModel {
 	public function validate($data, $behavior = 'default') {
 		
 		$rules = array(
-			'parent_type' => 'required',
-			'parent_id' => 'required|integer',
+//			'parent_type' => 'required',
+//			'parent_id' => 'required|integer',
 			'text' => '',
 			'is_file' => 'boolean',
 			'file' => 'max:'.(1024*5),

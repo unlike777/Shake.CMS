@@ -1,0 +1,65 @@
+$(document).ready(function() {
+
+	$('body').on('click', '#ufields__add', function() {
+		var $tmp = $('.ufields__item--gag').clone().removeClass('ufields__item--gag');
+		$('.ufields__item:last').after($tmp);
+	});
+	
+	$('body').on('click', '.ufields__save', function() {
+		var $this = $(this),
+			$item = $this.parents('.ufields__item:first'),
+			$parent = $this.parents('.ufields:first'),
+			id = $item.attr('data-id'),
+			parent_id = $parent.attr('data-id'),
+			$form = $this.parents('form:first');
+		
+		
+		var url = '/admin/'+my.getUrl(1)+'/field_create/'+parent_id;
+		
+		if (id > 0) {
+			url = '/admin/'+my.getUrl(1)+'/field_update/'+id;
+		}
+		
+		$form.ajaxSubmit({
+			type: 'POST',
+			dataType: 'json',
+			url: url,
+			success: function(data) {
+				
+				if (data.error > 0) {
+					alert(data.data);
+				} else {
+					$('#ufields').replaceWith(data.data);
+				}
+				
+			},
+			error: function() {
+				alert('Сервер временно не доступен, обновите страницу и попробуйте снова');
+			}
+		});
+	});
+	
+	$('body').on('click', '.ufields__delete', function() {
+		var $this = $(this),
+			$item = $this.parents('.ufields__item:first'),
+			id = $item.attr('data-id');
+		
+		if (id > 0) {
+			$.get('/admin/'+my.getUrl(1)+'/field_delete/'+id, function(data) {
+				if (data.error > 0) {
+					alert(data.data);
+				} else {
+					$('#ufields').replaceWith(data.data);
+				}
+			});
+		} else {
+			$item.remove();
+		}
+		
+	});
+	
+});
+
+$(window).load(function() {
+
+});

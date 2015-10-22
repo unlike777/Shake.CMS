@@ -21,6 +21,7 @@
 	<script type="text/javascript" src="{{ uncache('cms/ckeditor/ckeditor.js') }}"></script>
 	<script type="text/javascript" src="{{ uncache('cms/libs/myLib.js') }}"></script>
 	<script type="text/javascript" src="{{ uncache('cms/adaptive.js') }}"></script>
+	<script type="text/javascript" src="{{ uncache('cms/fields.js') }}"></script>
 	<script type="text/javascript" src="{{ uncache('cms/table.js') }}"></script>
 	<script type="text/javascript" src="{{ uncache('cms/drop.js') }}"></script>
 	<script type="text/javascript" src="{{ uncache('cms/js.js') }}"></script>

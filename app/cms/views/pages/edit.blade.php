@@ -32,6 +32,7 @@
 	
 		{{ Form::close() }}
 		
+		@include('cms::widgets.fields.default', array('item' => $item))
 		
 		@include('cms::widgets.stickyFiles.default', array('item' => $item))
 		
