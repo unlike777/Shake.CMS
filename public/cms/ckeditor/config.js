@@ -15,8 +15,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.filebrowserBrowseUrl = '/cms/elfinder/elfinder.html';
 	config.filebrowserWindowHeight = 520;
 
-	//config.extraPlugins = 'mediaembed';
-	config.extraPlugins = 'autogrow';
+	config.extraPlugins = 'mediaembed,autogrow';
 	
 	config.stylesSet = [
 		{ name: 'Красный текст', element: 'span', attributes: { 'class': 'red' } }
