@@ -16,6 +16,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.filebrowserWindowHeight = 520;
 
 	//config.extraPlugins = 'mediaembed';
+	config.extraPlugins = 'autogrow';
 	
 	config.stylesSet = [
 		{ name: 'Красный текст', element: 'span', attributes: { 'class': 'red' } }
