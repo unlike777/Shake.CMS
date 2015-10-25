@@ -5,6 +5,12 @@
 
     RewriteEngine On
 
+	#RewriteCond %{HTTP_HOST} ^www.yourdomain.ru$ [NC]
+    #RewriteRule ^(.*)$ http://yourdomain.ru/$1 [R=301,L]
+    
+    #RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/
+    #RewriteRule ^index\.php$ http://yourdomain.ru/ [R=301,L]
+
     # Redirect Trailing Slashes...
     RewriteRule ^(.*)/$ /$1 [L,R=301]
 
@@ -12,10 +18,4 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-    
-    #RewriteCond %{HTTP_HOST} ^www.yourdomain.ru$ [NC]
-    #RewriteRule ^(.*)$ http://yourdomain.ru/$1 [R=301,L]
-    
-    #RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/
-    #RewriteRule ^index\.php$ http://yourdomain.ru/ [R=301,L]
 </IfModule>
