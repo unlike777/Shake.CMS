@@ -155,3 +155,14 @@ function fit_line($str, $length, $char = ' ', $pos = 'r') {
 	}
 	return $str;
 }
+
+/**
+ * Проверяет включены ли Кукисы у пользователя
+ * @return bool
+ */
+function isCookieEnable() {
+	if (isset($_SERVER['HTTP_COOKIE'])) {
+		return true;
+	}
+	return false;
+}
