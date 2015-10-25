@@ -14,6 +14,8 @@ Route::group(array('prefix'=>'admin', 'before' => 'admin'), function()
 {
 	
 	//pages additional
+	Route::any('/',
+		array('as'=>'pagesDefaultAdmin', 'uses'=>'PagesAdminController@def')); //def page for admin
 	Route::any('/pages/position',
 		array('as'=>'pagesPositionAdmin', 'uses'=>'PagesAdminController@position'));
 //	Route::any('/pages/tree',
