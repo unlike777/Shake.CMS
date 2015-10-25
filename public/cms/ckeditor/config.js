@@ -26,7 +26,9 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.pasteFromWordRemoveFontStyles = true;
 	config.forceEnterMode = true;
-
+	
+	config.colorButton_colors = '9370DB,04BCF9,FF69B4,FF5B3E,32CD32,E22727,AA0000,FA0000,FA7800,0AAA00,000050,64145A,FFC887,F0DC00,A0F000,0078F0';
+	
 	// The toolbar groups arrangement, optimized for two toolbar rows.
 	config.toolbar = [
 		{ name: 'document', items : [ 'Source','ShowBlocks','Print'] },
