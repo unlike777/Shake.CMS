@@ -37,7 +37,7 @@ ClassLoader::addDirectories(array(
 |
 */
 
-Log::useDailyFiles(storage_path().'/logs/laravel.log');
+Log::useDailyFiles(storage_path().'/logs/laravel.log', 7);
 
 /*
 |--------------------------------------------------------------------------
