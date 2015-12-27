@@ -32,7 +32,7 @@ class SEO {
 				
 				if (isset(self::$changed[class_basename(self::$obj)][$kind])) {
 					$foo = self::$changed[class_basename(self::$obj)][$kind];
-					$text = $foo(self::$obj);
+					$text = $foo(self::$obj, $text);
 				}
 			}
 			if (empty($text)) {
