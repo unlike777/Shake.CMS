@@ -195,6 +195,12 @@ class ShakeModel extends Eloquent {
 			}
 
 		}
+		
+		foreach ($this->getFillable() as $name) {
+			if (is_null($this->{$name})) {
+				$this->{$name} = '';
+			}
+		}
 
 		return parent::save($options);
 	}
