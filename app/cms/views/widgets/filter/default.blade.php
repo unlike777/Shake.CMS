@@ -36,6 +36,15 @@
 			
 		@elseif ($field['type'] == 'select')
 		
+			<?
+				foreach ($field['values'] as $val) {
+					if ($val !== '') {
+						$field['values'] = array('' => '') + $field['values'];
+					}
+					break;
+				}
+			?>
+			
 			<div class="col-xs-2">
 				<div class="form-group">
 					{{ Form::label($fname, $field['title']) }}
