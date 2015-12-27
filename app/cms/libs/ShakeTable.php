@@ -41,8 +41,9 @@ class ShakeTable {
 	 * @param string $title
 	 * @param int $width
 	 * @param object|bool $callback - функция для обработки значения
+	 * @param bool $sort - если false то отключает сортировку у столбца
 	 */
-	public function add($name, $title = '', $width = 0, $callback = false) {
+	public function add($name, $title = '', $width = 0, $callback = false, $sort = true) {
 		
 		if (empty($title)) {
 			$title = $name;
@@ -52,6 +53,7 @@ class ShakeTable {
 			'title' => $title,
 			'width' => $width,
 			'callback' => $callback,
+			'sort' => $sort,
 		);
 		
 		return $this;
@@ -97,6 +99,11 @@ class ShakeTable {
 			));
 			
 			$sort = link_to_route($this->module.'DefaultAdmin', '', $query, array('class' => $glyph));
+			
+			if (!$col['sort']) {
+				$sort = '';
+			}
+			
 			$ret .= '<th '.$width.'>'.$col['title'].' '.$sort.'</th>';
 		}
 
