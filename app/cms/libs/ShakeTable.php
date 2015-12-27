@@ -187,7 +187,9 @@ class ShakeTable {
 		if ($this->data->count() > 0) {
 
 			$ret .= '<div class="btn-group btn-group-sm">';
-			$ret .= '<button type="button" class="btn btn-default table__multi_active" data-route="/admin/'.$this->module.'/active"><span class="glyphicon glyphicon-retweet"></span></button>';
+			if ($this->model->hasActive()) {
+				$ret .= '<button type="button" class="btn btn-default table__multi_active" data-route="/admin/'.$this->module.'/active"><span class="glyphicon glyphicon-retweet"></span></button>';
+			}
 			$ret .= '<button type="button" class="btn btn-default table__multi_delete" data-route="/admin/'.$this->module.'/delete"><span class="glyphicon glyphicon-trash"></span></button>';
 			$ret .= '</div>';
 
