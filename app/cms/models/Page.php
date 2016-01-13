@@ -39,6 +39,7 @@ class Page extends ShakeModel {
 			'title' => 'Шаблон страницы',
 			'values' => array(
 				'default' => 'Стандартный',
+				'home'    => 'Домашний',
 				'second'  => 'Второстепенный',
 			),
 		),

@@ -3,7 +3,11 @@
 class PagesController extends BaseController {
 
 	public function def() {
-		return View::make('pages.pages');
+		$item = Page::where('is_home', '=', 1)->firstOrFail();
+		
+		$templ = empty($item->template) ? 'default' : $item->template;
+		
+		return View::make('pages.templates.'.$templ, array('item' => $item));
 	}
 	
 	public function pages($slug) {
