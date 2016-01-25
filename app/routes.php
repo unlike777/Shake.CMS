@@ -11,6 +11,7 @@
 */
 
 //\Debugbar::enable();
+//\Debugbar::disable();
 //SqlDebug::on();
 
 /*
