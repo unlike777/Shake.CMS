@@ -45,9 +45,14 @@
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="/">Shake.CMS</a>
-			<a class="navbar-text navbar-link" href="/" style="text-decoration: none;">перейти на сайт</a>
 		</div>
 		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li>
+					<a href="/">перейти на сайт</a>
+				</li>
+			</ul>
+			
 			{{--
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="/admin">Страницы</a></li>
