@@ -82,7 +82,7 @@ class Resizer {
 			$filename = $this->resize_prefix().basename(self::$img);
 			$from_path = $this->public_path().$this->cache_path();
 			
-			$full = $from_path.'*/'.$filename;
+			$full = $from_path.'/*/'.$filename;
 			$arr = glob($full);
 			$arr = ($arr === false) ? array() : $arr;
 			
