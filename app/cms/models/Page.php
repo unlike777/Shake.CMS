@@ -46,8 +46,8 @@ class Page extends ShakeModel {
 	);
 	
 	protected $ajax_files = array(
-		'images',
-		'test',
+		'images' => 'Картинки',
+		'test' => 'Тест',
 	);
 
 

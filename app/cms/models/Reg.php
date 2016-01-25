@@ -32,8 +32,8 @@ class Reg extends ShakeModel {
 	);
 	
 //	protected $ajax_files = array(
-//		'images',
-//		'test',
+//		'images' => 'Картинки',
+//		'test' => 'Тест',
 //	);
 
 	public function validate($data, $behavior = 'default') {

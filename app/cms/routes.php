@@ -26,7 +26,6 @@ Route::group(array('prefix'=>'admin', 'before' => 'admin'), function()
 	
 	Route::any('/info',
 		array('as'=>'infoDefaultAdmin', 'uses'=>'InfoAdminController@def'));
-	
 	Route::any('/info/php',
 		array('as'=>'infoPhpAdmin', 'uses'=>'InfoAdminController@php'));
 	

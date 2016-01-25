@@ -3,10 +3,12 @@
 		
 	<div class="clear"></div>
 		
-	@foreach($item->getAjaxFields() as $field)
+	@foreach($item->getAjaxFields() as $field => $fname)
 		
 		<br><br>
 		<div class="clear"></div>
+		
+		<h4>{{ $fname }}</h4>
 		
 		<div class="drop" data-id="{{ $item->id }}" data-field="{{ $field }}">
 			<div class="drop__zone_wr">
@@ -16,7 +18,7 @@
 			</div>
 			
 			<div class="drop__file_list">
-				@foreach($item->stickyFiles($field) as $file)
+				@foreach($item->stickyFiles($field)->get() as $file)
 					<div class="drop__file_item" data-id="{{ $file->id }}">
 						<div class="drop__file_item_del glyphicon glyphicon-remove"></div>
 						<div class="drop__file_item_in">

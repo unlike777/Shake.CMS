@@ -135,17 +135,20 @@ class ShakeModel extends Eloquent {
 	public function getAjaxFields() {
 		return $this->ajax_files;
 	}
-
+	
 	/**
 	 * Возвратит все приклепленные файлы к объекту
-	 * @param $field - доп. фильтр по типу поля
-	 * @return array
+	 * @param null $field - доп. фильтр по типу поля
+	 * @return \Illuminate\Database\Eloquent\Relations\MorphMany
 	 */
-	public function stickyFiles($field) {
-		if (in_array($field, $this->getAjaxFields())) {
-			return $this->morphMany('StickyFile', 'parent')->where('field', '=', $field)->get();
+	public function stickyFiles($field = NULL) {
+		$query = $this->morphMany('StickyFile', 'parent');
+		
+		if ($field) {
+			$query->where('field', '=', $field);
 		}
-		return array();
+		
+		return $query;
 	}
 	
 	/**
@@ -171,6 +174,10 @@ class ShakeModel extends Eloquent {
 	public function delete() {
 		
 		$this->seoText()->delete();
+		
+		foreach ($this->stickyFiles()->get() as $file) {
+			$file->delete();
+		}
 		
 		foreach ($this->getFileFields() as $key) {
 			Resizer::image($this->{$key})->deleteCache();
