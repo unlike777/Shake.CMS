@@ -23,6 +23,7 @@ class ShakeModel extends Eloquent {
 				$ext = $file->getClientOriginalExtension();
 				$name = $file->getClientOriginalName();
 				$name = str_replace('.'.$ext, '', $name);
+				$name = Slug::make($name, '_');
 
 				$type = $file->getMimeType();
 				$type = explode('/', $type);
