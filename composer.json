@@ -6,7 +6,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"intervention/image": "2.0.*",
-		"ivanlemeshev/laravel-cyrillic-slug": "1.0.*",
+		"ivanlemeshev/laravel4-cyrillic-slug": "1.0.*",
 		"intervention/imagecache": "2.*",
 		"mews/captcha": "1.0.*",
 	  	"mews/purifier": "dev-master-l4",
