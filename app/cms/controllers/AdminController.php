@@ -60,7 +60,7 @@ class AdminController extends BaseController {
 			}
 			
 			$obj->fill($data);
-			$obj->saveUploadFiles($data);
+			$obj->saveUploadFiles();
 
 			if ($obj->save()) {
 				
@@ -126,7 +126,7 @@ class AdminController extends BaseController {
 		$module = $this->getModuleName();
 
 		/**
-		 * @var $obj Eloquent|Page|User
+		 * @var $obj Eloquent|Page|User|ShakeModel
 		 */
 
 		if (Request::has('id') ) {
@@ -135,12 +135,14 @@ class AdminController extends BaseController {
 			if (!($obj = $this->model->find($id)))
 				return Redirect::route($module.'DefaultAdmin', Session::get('shake.url.'.$module))
 					->with('message', array('title' => 'Ошибка', 'text' => 'Объекта с id = '.$id.' не существует'));
-
+			
+			$obj->log_on_delete();
 			$obj->delete();
 			return Redirect::route($module.'DefaultAdmin', Session::get('shake.url.'.$module));
 		} else if (Request::has('objects')) {
 			foreach (Request::get('objects') as $id) {
 				if ($obj = $this->model->find($id)) {
+					$obj->log_on_delete();
 					$obj->delete();
 				}
 			}
@@ -154,7 +156,7 @@ class AdminController extends BaseController {
 		$module = $this->getModuleName();
 
 		/**
-		 * @var $obj Eloquent|Page|User
+		 * @var $obj Eloquent|Page|User|ShakeModel
 		 */
 
 		$obj = new $this->model;
@@ -171,7 +173,7 @@ class AdminController extends BaseController {
 			}
 
 			$obj->fill($data);
-			$obj->saveUploadFiles($data);
+			$obj->saveUploadFiles();
 
 			if ($obj->save()) {
 				
@@ -221,7 +223,7 @@ class AdminController extends BaseController {
 		$validation = $file->validate($input);
 		if ($parent && $validation->passes()) {
 			$file->field = Input::get('field');
-			$file->saveUploadFiles($input);
+			$file->saveUploadFiles();
 			if ($file->save()) {
 				$parent->morphMany('StickyFile', 'parent')->save($file);
 				return Response::json(array('error' => 0, 'data' => $file->file));
@@ -233,8 +235,12 @@ class AdminController extends BaseController {
 
 	public function upload_delete() {
 
+		/**
+		 * @var $file StickyFile
+		 */
 		if (Input::has('id')) {
 			if ($file = StickyFile::find(Input::get('id'))) {
+				$file->log_on_delete();
 				$file->delete();
 			}
 		}
@@ -309,6 +315,7 @@ class AdminController extends BaseController {
 			return Response::json(array('error' => 1, 'data' => 'Поле не найдено!'));
 		}
 		
+		$field->log_on_delete();
 		$field->delete();
 		
 		return Response::json(array('error' => 0, 'data' => View::make('cms::widgets.fields.default', array('item' => $field->parent))->render()));

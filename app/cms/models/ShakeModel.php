@@ -252,4 +252,26 @@ class ShakeModel extends Eloquent {
 		return in_array('active', $this->fillable) ? true : false;
 	}
 	
+	/**
+	 * Записывает информацию в лог при удалении объекта
+	 * @return $this
+	 */
+	public function log_on_delete() {
+		$log = new Logger('delete.log');
+		
+		$obj_info = array('model' => class_basename($this));
+		foreach (array('id', 'title', 'email', 'file') as $field) {
+			$obj_info[$field] = $this->{$field};
+		}
+		
+		$str = date('[Y-m-d H:i:s]').'   '
+			.fit_line('['.Request::getClientIp().']', 19).' '
+			.fit_line('['.user_field('email').']', 25)
+			.json_encode($obj_info, JSON_UNESCAPED_UNICODE);
+		
+		$log->add($str)->save();
+		
+		return $this;
+	}
+	
 }
