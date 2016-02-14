@@ -79,23 +79,26 @@
 						<div class="col-xs-6">
 							<div class="form-group">
 								{{ Form::label($fname, $field['title']) }} <br>
-								<a href="{{ $item->{$fname} }}" target="_blank">
-	
-									<?
-									$img_check = false;
-									try {
-										Image::make(public_path().$item->{$fname});
-										$img_check = true;
-									} catch (Exception $e) {}
-									?>
-	
-									@if ( $img_check )
+								
+								<?
+								$img_check = false;
+								try {
+									Image::make(public_path().$item->{$fname});
+									$img_check = true;
+								} catch (Exception $e) {}
+								?>
+
+								@if ( $img_check )
+									<a href="{{ $item->{$fname} }}" target="_blank" class="fancybox" rel="form">
 										<img src="{{ Resizer::image($item->{$fname})->make(200, 100) }}">
-									@else
+									</a>
+								@else
+									<a href="{{ $item->{$fname} }}" target="_blank">
 										Скачать ({{ $item->{$fname} }}) <br>
-									@endif
-	
-								</a>
+									</a>
+								@endif
+								
+								
 								{{ Form::checkbox($fname.'_del', 0, 0, array('id' => $fname.'_del')) }}
 								{{ Form::label($fname.'_del', 'Удалить?') }}
 								{{ Form::hidden($fname, null, array('class' => 'form-control')) }}

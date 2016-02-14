@@ -8,6 +8,7 @@
 	<link type="text/css" rel="stylesheet" href="{{ uncache('cms/bootstrap/css/bootstrap-theme.css') }}">
 	<link type="text/css" rel="stylesheet" href="{{ uncache('cms/libs/nestable/style.css') }}">
 	<link type="text/css" rel="stylesheet" href="{{ uncache('cms/bootstrap/css/bootstrap-datetimepicker.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ uncache('cms/libs/fancybox/jquery.fancybox.css') }}">
 	
 	<link type="text/css" rel="stylesheet" href="{{ uncache('cms/style.css') }}">
 	
@@ -18,6 +19,7 @@
 	<script type="text/javascript" src="{{ uncache('cms/bootstrap/js/moment.js') }}"></script>
 	<script type="text/javascript" src="{{ uncache('cms/bootstrap/js/bootstrap.js') }}"></script>
 	<script type="text/javascript" src="{{ uncache('cms/bootstrap/js/bootstrap-datetimepicker.js') }}"></script>
+	<script type="text/javascript" src="{{ uncache('cms/libs/fancybox/jquery.fancybox.js') }}"></script>
 	<script type="text/javascript" src="{{ uncache('cms/ckeditor/ckeditor.js') }}"></script>
 	<script type="text/javascript" src="{{ uncache('cms/libs/myLib.js') }}"></script>
 	<script type="text/javascript" src="{{ uncache('cms/adaptive.js') }}"></script>

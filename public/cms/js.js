@@ -108,6 +108,15 @@ $(document).ready(function() {
 		$this.addClass('nav-header'+i);
 	});
 	
+	//fancybox
+	$('.fancybox').fancybox({
+		helpers: {
+			overlay: {
+				locked: false
+			}
+		}
+	});
+	
 });
 
 $(window).load(function() {

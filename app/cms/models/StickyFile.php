@@ -55,4 +55,25 @@ class StickyFile extends ShakeModel {
 		
 		return '';
 	}
+
+	/**
+	 * Проверяет является ли файл изображением
+	 * @return bool
+	 */
+	public function is_image() {
+		
+		$file_path = public_path($this->file);
+		
+		if (file_exists($file_path)) {
+			$t = new Symfony\Component\HttpFoundation\File\File($file_path);
+			$type = $t->getMimeType();
+			$type = explode('/', $type);
+			
+			if ($type[0] == 'image') {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

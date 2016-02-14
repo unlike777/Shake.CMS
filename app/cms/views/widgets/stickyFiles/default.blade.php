@@ -21,9 +21,17 @@
 				@foreach($item->stickyFiles($field)->get() as $file)
 					<div class="drop__file_item" data-id="{{ $file->id }}">
 						<div class="drop__file_item_del glyphicon glyphicon-remove"></div>
-						<div class="drop__file_item_in">
-							<a href="{{ $file->file }}" target="_blank">{{ $file->file }}</a>
-						</div>
+						
+						@if ($file->is_image())
+							<a href="{{ $file->file }}" target="_blank" class="fancybox" rel="sticky[{{ $field }}]">
+								<img src="{{ Resizer::image($file->file)->make(110, 110) }}">
+							</a>
+						@else
+							<div class="drop__file_item_in">
+								<a href="{{ $file->file }}" target="_blank">{{ $file->file }}</a>
+							</div>
+						@endif
+						
 					</div>
 				@endforeach
 				{{--<div class="drop__file_item"></div>--}}
