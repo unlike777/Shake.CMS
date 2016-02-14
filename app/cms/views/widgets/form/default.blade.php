@@ -108,6 +108,7 @@
 				<div class="col-xs-6">
 					<div class="form-group">
 						{{ Form::label($fname, $field['title']) }}
+						{{ Form::text('', '', array('style' => 'display: none;')) }} {{-- autocomplete disable --}}
 						{{ Form::password($fname, array('class' => 'form-control')) }}
 					</div>
 				</div>
