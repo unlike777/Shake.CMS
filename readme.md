@@ -6,13 +6,12 @@ admin access
 login: test@test.ru  
 password: admins 
 
-###Install
+###Установка
 
-1. Скачать архив
-2. Распаковать его в корневую директорию
-3. Прописать в консоле composer update
-4. Экспортировать БД из laravel.sql
-5. Настроить конфиг для БД
+1. git clone https://github.com/unlike777/Shake.CMS.git
+2. composer update
+3. Экспортировать БД из **laravel.sql**
+4. Настроить конфиг для БД
 
 ###Описание
 
