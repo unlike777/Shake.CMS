@@ -87,13 +87,13 @@ body{padding-top: 51px; background-color: #222;}
 .ufields{margin: 30px 0 20px 0;}
 .ufields__wr{margin: 10px 0 30px 0;}
 .ufields__item{margin-bottom: 10px;}
-.ufields__item_inner{padding: 20px; border: 1px solid #CCCCCC; border-radius: 5px; position: relative; background: rgb(58, 58, 58);}
+.ufields__item_inner{padding: 20px; border-radius: 5px; position: relative; background: #F2F2F2;}
 .ufields__item textarea{resize: none; width: 100%; height: 200px;}
 .ufields__textarea{margin-bottom: 10px;}
 /*
 .ufields__del{position: absolute; top: 5px; right: 5px; cursor: pointer; opacity: 0.7; color: white;}
 .ufields__del:hover{opacity: 1;}
 */
-.ufields__item textarea, .ufields__item input[type="text"], .ufields__item input[type="password"]{border: 0; box-shadow: inset 0px 3px 7px #969696; width: 100%; padding: 3px 5px; box-sizing: border-box;}
+.ufields__item textarea, .ufields__item input[type="text"], .ufields__item input[type="password"]{border: 0; box-shadow: inset 0px 2px 5px #C5C5C5; width: 100%; padding: 3px 5px; box-sizing: border-box; border-radius: 3px;}
 .ufields__item--gag{display: none;}
 .ufields__input{margin-bottom: 10px;}
