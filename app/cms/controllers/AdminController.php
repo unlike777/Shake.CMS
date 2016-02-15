@@ -4,9 +4,28 @@ class AdminController extends BaseController {
 
 	/**
 	 * Основная модель используемая в модуле
-	 * @var $model Eloquent|Page
+	 * @var $model Eloquent|Page|ShakeMOdel
 	 */
 	protected $model;
+
+	/**
+	 * Список склонений
+	 * @var array
+	 */
+	protected $decls = array('section' => 'Объекты', 'many' => 'Объектов', 'one' => 'Объекта');
+
+	/**
+	 * @var ShakeTable
+	 */
+	protected $table;
+
+	/**
+	 * Создаем экземпляр таблицы, присваиваем модель и модуль
+	 */
+	public function __construct() {
+		$this->table = new ShakeTable($this->model);
+		$this->table->setModule($this->getModuleName());
+	}
 	
 	/**
 	 * Вернет название модуля - название модели + "s", в нижем регистре
@@ -18,7 +37,7 @@ class AdminController extends BaseController {
 	}
 
 	public function def() {
-
+		
 		$module = $this->getModuleName();
 
 		$query = Input::query();
@@ -26,11 +45,17 @@ class AdminController extends BaseController {
 		if (!empty($query)) {
 			Session::set('shake.url.'.$module, $query);
 		}
+		
+		$view = 'cms::'.$module.'.list';
+		if (!View::exists($view)) {
+			$view = 'cms::default.list';
+		}
 
-		return View::make('cms::'.$module.'.list')
+		return View::make($view)
 			->with(array(
-				'model' => $this->model,
+				'table' => $this->table,
 				'module' => $module,
+				'decls' => $this->decls,
 			));
 	}
 
@@ -91,10 +116,16 @@ class AdminController extends BaseController {
 			}
 		}
 
-		return View::make('cms::'.$module.'.edit')
+		$view = 'cms::'.$module.'.edit';
+		if (!View::exists($view)) {
+			$view = 'cms::default.edit';
+		}
+		
+		return View::make($view)
 			->with( array(
 				'item' => $obj,
 				'module' => $module,
+				'decls' => $this->decls,
 			));
 	}
 
@@ -203,11 +234,17 @@ class AdminController extends BaseController {
 					->withInput(Input::except($obj->getFileFields()));
 			}
 		}
+		
+		$view = 'cms::'.$module.'.edit';
+		if (!View::exists($view)) {
+			$view = 'cms::default.edit';
+		}
 
-		return View::make('cms::'.$module.'.edit')
+		return View::make($view)
 			->with( array(
 				'item' => $obj,
 				'module' => $module,
+				'decls' => $this->decls,
 			));
 	}
 

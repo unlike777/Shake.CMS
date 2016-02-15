@@ -17,14 +17,23 @@ class ShakeTable {
 	 * конструктор
 	 * @param $data
 	 */
-	public function __construct($model) {
+	public function __construct($model = null) {
+		if ($model) {
+			$this->setModel($model);
+		}
+	}
+
+	/**
+	 * Устанавливает модель для таблицы
+	 * @param $model
+	 */
+	public function setModel($model) {
 		$this->model = $model;
 		$this->data = $model;
 		
 		$this->filter_fields = $model->getFilterFields();
 	}
-
-
+	
 	/**
 	 * Устанавливаем модуль для роутов
 	 * @param $name

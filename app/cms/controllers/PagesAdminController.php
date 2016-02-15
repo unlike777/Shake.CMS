@@ -2,6 +2,8 @@
 
 class PagesAdminController extends AdminController {
 	
+	protected $decls = array('section' => 'структура', 'many' => 'страниц', 'one' => 'страницы');
+	
 	public function __construct() {
 		$this->model = new Page();
 	}

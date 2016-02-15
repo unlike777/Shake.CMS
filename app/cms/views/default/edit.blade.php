@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
 
-	<h1>Пользователи → Редактирование Пользователя</h1>
+	<h1>{{ mb_ucfirst($decls['section']) }} → {{ $item->exists ? 'Редактирование' : 'Создание' }} {{ $decls['one'] }}</h1>
 	
 	<br><br>
 	
