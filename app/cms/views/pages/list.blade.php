@@ -40,10 +40,17 @@
     	</div>
     	
     	<div class="col-md-5">
-    		<h3>Дополнительная информация</h3>
-            <p>Новых пользователей: 15</p>
-            <p>Новых комментариев: 10</p>
-            <p>Хитов за сегодня: 150</p>
+    		<h3>Информация</h3>
+			<br>
+			
+			<p>
+				<h4>Новые пользователи</h4>
+				<b>Сегодня:</b> {{ User::where('created_at', '>', date('Y-m-d 00:00:00'))->count() }} &nbsp; &nbsp;
+				<b>За неделю:</b> {{ User::where('created_at', '>', date('Y-m-d 00:00:00', strtotime('-7 day')))->count() }} &nbsp; &nbsp;
+				<b>За месяц:</b> {{ User::where('created_at', '>', date('Y-m-d 00:00:00', strtotime('-1 month')))->count() }} &nbsp; &nbsp;
+				<br><br>
+				Посмотреть <a href="{{ route('usersDefaultAdmin') }}">всех пользователей</a>
+			</p>
 		</div>
     </div>
 	
