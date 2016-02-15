@@ -167,14 +167,21 @@ class AdminController extends BaseController {
 				return Redirect::route($module.'DefaultAdmin', Session::get('shake.url.'.$module))
 					->with('message', array('title' => 'Ошибка', 'text' => 'Объекта с id = '.$id.' не существует'));
 			
-			$obj->log_on_delete();
-			$obj->delete();
-			return Redirect::route($module.'DefaultAdmin', Session::get('shake.url.'.$module));
+			$redirect = Redirect::route($module.'DefaultAdmin', Session::get('shake.url.'.$module));
+			
+			if ($obj->delete()) {
+				$obj->log_on_delete();
+			} else {
+				$redirect->with('message', array('title' => 'Ошибка', 'text' => $obj->getErrorsText('<br>')));
+			}
+			
+			return $redirect;
 		} else if (Request::has('objects')) {
 			foreach (Request::get('objects') as $id) {
 				if ($obj = $this->model->find($id)) {
-					$obj->log_on_delete();
-					$obj->delete();
+					if ($obj->delete()) {
+						$obj->log_on_delete();
+					}
 				}
 			}
 

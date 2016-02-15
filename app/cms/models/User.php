@@ -128,5 +128,15 @@ class User extends ShakeModel implements UserInterface, RemindableInterface {
 		}
 		return false;
 	}
+	
+	public function delete() {
+		
+		if ($this->isAdmin()) {
+			$this->error('Пользователь входит в группу "Администраторов", его нельзя удалять!');
+			return false;
+		}
+		
+		return parent::delete();
+	}
 
 }
