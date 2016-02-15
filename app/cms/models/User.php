@@ -118,4 +118,15 @@ class User extends ShakeModel implements UserInterface, RemindableInterface {
 		return $this->hasMany('Profile', 'user_id');
 	}
 
+	/**
+	 * Определяет является ли пользователь администратором
+	 * @return bool
+	 */
+	public function isAdmin() {
+		if ($this->group == 1) {
+			return true;
+		}
+		return false;
+	}
+
 }
