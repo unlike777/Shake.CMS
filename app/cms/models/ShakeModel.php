@@ -260,7 +260,7 @@ class ShakeModel extends Eloquent {
 		$log = new Logger('delete.log');
 		
 		$obj_info = array('model' => class_basename($this));
-		foreach (array('id', 'title', 'email', 'file') as $field) {
+		foreach (array('id', 'title', 'email', 'file', 'field') as $field) {
 			$obj_info[$field] = $this->{$field};
 		}
 		
