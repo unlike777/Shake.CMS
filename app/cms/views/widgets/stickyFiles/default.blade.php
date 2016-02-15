@@ -24,12 +24,14 @@
 						
 						@if ($file->is_image())
 							<a href="{{ $file->file }}" target="_blank" class="fancybox" rel="sticky[{{ $field }}]">
-								<img src="{{ Resizer::image($file->file)->make(110, 110) }}">
+								<img src="{{ Resizer::image($file->file)->make(160, 160) }}">
 							</a>
 						@else
-							<div class="drop__file_item_in">
-								<a href="{{ $file->file }}" target="_blank">{{ $file->file }}</a>
-							</div>
+							<a href="{{ $file->file }}" target="_blank">
+								<div class="drop__file_item_in">
+									{{ $file->file }}
+								</div>
+							</a>
 						@endif
 						
 					</div>
