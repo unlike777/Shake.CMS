@@ -19,7 +19,7 @@
 			
 			<div class="drop__file_list">
 				@foreach($item->stickyFiles($field)->get() as $file)
-					<div class="drop__file_item" data-id="{{ $file->id }}">
+					<div class="drop__file_item {{ $file->is_image() ? 'drop__file_item--image' : '' }}" data-id="{{ $file->id }}">
 						<div class="drop__file_item_del glyphicon glyphicon-remove"></div>
 						
 						@if ($file->is_image())
