@@ -218,15 +218,17 @@ class AdminController extends BaseController {
 		$file = new StickyFile();
 
 		$parent = $this->model->find($id);
+		$field = Input::get('field');
 
 		$input = Input::only(array('file', 'field'));
 		$validation = $file->validate($input);
 		if ($parent && $validation->passes()) {
-			$file->field = Input::get('field');
+			$file->field = $field;
 			$file->saveUploadFiles();
 			if ($file->save()) {
 				$parent->morphMany('StickyFile', 'parent')->save($file);
-				return Response::json(array('error' => 0, 'data' => $file->file));
+				$data = View::make('cms::widgets.stickyFiles._item', compact('file', 'field'))->render();
+				return Response::json(array('error' => 0, 'data' => $data));
 			}
 		}
 

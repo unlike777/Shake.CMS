@@ -44,11 +44,7 @@ $(document).ready(function() {
 
 					var data = JSON.parse(e.target.responseText);
 					
-					$drop.find('.drop__file_list').append(
-						'<div class="drop__file_item">' +
-						//'<div class="drop__file_item_del glyphicon glyphicon-remove"></div>' +
-						'<div class="drop__file_item_in"><a href="'+data.data+'" target="_blank">Скачать</a></div>' +
-						'</div>');
+					$drop.find('.drop__file_list').append(data.data);
 					
 					//console.log(e.target.responseText);
 				} else {
