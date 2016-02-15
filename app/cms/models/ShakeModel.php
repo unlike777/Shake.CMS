@@ -203,7 +203,10 @@ class ShakeModel extends Eloquent {
 			}
 
 		}
-		
+
+		/**
+		 * Особенно полезно для файловых полей, теперь им в базе не нужно указывать IS_NULL
+		 */
 		foreach ($this->getFillable() as $name) {
 			if (is_null($this->{$name})) {
 				$this->{$name} = '';
