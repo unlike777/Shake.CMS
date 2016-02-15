@@ -8,7 +8,7 @@ password: admins
 
 ###Установка
 
-1. git clone https://github.com/unlike777/Shake.CMS.git
+1. git clone https://github.com/unlike777/Shake.CMS.git .
 2. composer update
 3. Экспортировать БД из **laravel.sql**
 4. Настроить конфиг для БД
