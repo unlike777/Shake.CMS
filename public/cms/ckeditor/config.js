@@ -33,7 +33,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.toolbar = [
 		{ name: 'document', items : [ 'Source','ShowBlocks','Print'] },
 		{ name: 'clipboard', items : [ 'Cut','Copy','PasteText','-','Undo','Redo' ] },
-		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll' ] },
+		{ name: 'editing', items : [ 'Find','Replace' /*,'-','SelectAll'*/ ] },
 		{ name: 'links', items : [ 'Link','Unlink' ] },
 		{ name: 'insert', items : [ '-','Image','MediaEmbed','Iframe','Flash','Table'/*,'Smiley'*/,'SpecialChar'] },
 		{ name: 'insert', items : ['-','About'] },
