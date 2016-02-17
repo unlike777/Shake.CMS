@@ -10,8 +10,15 @@ password: admins
 
 1. git clone https://github.com/unlike777/Shake.CMS.git .
 2. composer update
-3. Экспортировать БД из **laravel.sql**
-4. Настроить конфиг для БД
+3. настроить конфиг для БД
+4. php artisan migrate
+5. php artisan db:seed (тестовые данные)
+
+PS
++ чтобы создать или сбросить только страницы php artisan db:seed --class=PagesSeeder
++ чтобы создать или сбросить только пользователей php artisan db:seed --class=UsersSeeder
+
+Или экспортировать БД из **laravel.sql**
 
 ###Описание
 
