@@ -1,6 +1,6 @@
 <?php
 
-class InitialSeeder extends Seeder {
+class PagesSeeder extends Seeder {
 
 	/**
 	 * Run the database seeds.
@@ -9,17 +9,18 @@ class InitialSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		DB::table('fields')->truncate();
+		Eloquent::unguard();
+		
 		DB::table('files')->truncate();
 		DB::table('pages')->truncate();
-		DB::table('regs')->truncate();
 		DB::table('seo_texts')->truncate();
-		DB::table('settings')->truncate();
-		DB::table('users')->truncate();
 		
 		$this->pages();
 		$this->files();
-		
+		$this->seo();
+	}
+
+	public function seo() {
 		SeoText::create(array(
 			'title' => 'Shake.CMS - лучшая система управления контентом!',
 			'keywords' => 'Shake, CMS, управление, контент',
@@ -27,15 +28,8 @@ class InitialSeeder extends Seeder {
 			'parent_id' => 2,
 			'parent_type' => 'Page',
 		));
-		
-		User::create(array(
-			'active' => 1,
-			'email' => 'test@test.ru',
-			'password' => 'admins',
-			'group' => '1',
-		));
 	}
-
+	
 	public function pages() {
 		Page::create(array(
 			'active' => 1,
