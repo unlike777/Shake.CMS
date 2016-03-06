@@ -51,7 +51,7 @@
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li>
-					<a href="/">{Site_name} &mdash; перейти на сайт</a>
+					<a href="/"><!--{Site_name} &mdash;--> перейти на сайт</a>
 				</li>
 			</ul>
 			
