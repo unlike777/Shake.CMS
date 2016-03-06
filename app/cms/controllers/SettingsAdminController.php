@@ -12,6 +12,7 @@ class SettingsAdminController extends AdminController {
 	public function def() {
 		
 		$this->table->add('title', 'Описание', 0);
+		$this->table->add('alias', 'Алиас', 0);
 		$this->table->add('created_at', 'Дата создания', 0, function($val, $obj) {
 			return Date::parse($val)->format('j mm Y H:i:s'); 
 		});

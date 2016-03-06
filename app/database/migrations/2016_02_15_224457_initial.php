@@ -72,6 +72,7 @@ class Initial extends Migration {
 		{
 			$table->increments('id');
 			$table->string('title');
+			$table->string('alias')->index();
 			$table->text('text');
 			$table->timestamps();
 		});

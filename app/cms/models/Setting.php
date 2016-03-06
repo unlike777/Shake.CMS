@@ -13,7 +13,7 @@ Schema::create('settings', function(\Illuminate\Database\Schema\Blueprint $table
 
 class Setting extends ShakeModel {
 	
-	protected $fillable = array('title', 'text');
+	protected $fillable = array('title', 'alias', 'text');
 
 //	protected $attributes = array(
 //		'page_id' => 0,
@@ -24,6 +24,10 @@ class Setting extends ShakeModel {
 		'title' => array(
 			'type' => 'text',
 			'title' => 'Назначение',
+		),
+		'alias' => array(
+			'type' => 'text',
+			'title' => 'Алиас (для быстрого вызова)',
 		),
 		'text' => array(
 			'type' => 'textarea',
@@ -40,10 +44,24 @@ class Setting extends ShakeModel {
 		
 		$rules = array(
 			'title' => 'required|min:2',
+			'alias' => 'required|alpha_dash|between:2,255|unique:settings,alias',
 			'text' => '',
 		);
 		
+		if (!empty($this->id)) {
+			$rules['alias'] = $rules['alias'].','.$this->id;
+		}
+		
 		return Validator::make($data, $rules);
+	}
+
+	/**
+	 * Вернет значение или пустоту по алиасу
+	 * @param $alias
+	 * @return mixed
+	 */
+	public static function getValue($alias) {
+		return static::firstOrNew(array('alias' => $alias))->text;
 	}
 	
 }
