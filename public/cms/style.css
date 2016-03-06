@@ -97,3 +97,4 @@ body{padding-top: 51px; background-color: #222;}
 .ufields__item textarea, .ufields__item input[type="text"], .ufields__item input[type="password"]{border: 0; box-shadow: inset 0px 2px 5px #C5C5C5; width: 100%; padding: 3px 5px; box-sizing: border-box; border-radius: 3px;}
 .ufields__item--gag{display: none;}
 .ufields__input{margin-bottom: 10px;}
+.ufields__sign{display: none; color: green; margin-left: 8px; float: right; margin-top: 3px; margin-right: 1px;}

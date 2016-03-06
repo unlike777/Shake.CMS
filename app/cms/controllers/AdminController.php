@@ -319,7 +319,7 @@ class AdminController extends BaseController {
 		
 		if ($field->save()) {
 			$parent->uniqueFields()->save($field);
-			return Response::json(array('error' => 0, 'data' => View::make('cms::widgets.fields.default', array('item' => $parent))->render()));
+			return Response::json(array('error' => 0, 'data' => View::make('cms::widgets.fields.default', array('item' => $parent, 'field_id' => $field->id))->render()));
 		}
 		
 		return Response::json(array('error' => 1, 'data' => 'Сохранить файл не удалось'));
@@ -345,7 +345,7 @@ class AdminController extends BaseController {
 		$field->fill($data);
 		
 		if ($field->save()) {
-			return Response::json(array('error' => 0, 'data' => View::make('cms::widgets.fields.default', array('item' => $field->parent))->render()));
+			return Response::json(array('error' => 0, 'data' => View::make('cms::widgets.fields.default', array('item' => $field->parent, 'field_id' => $field->id))->render()));
 		}
 		
 		return Response::json(array('error' => 1, 'data' => 'Сохранить файл не удалось'));

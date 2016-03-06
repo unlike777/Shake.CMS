@@ -56,6 +56,10 @@
 										<div class="btn btn-danger btn-xs ufields__delete">
 											<span class="glyphicon glyphicon-remove"></span> Удалить
 										</div>
+										
+										@if (isset($field_id) && ($field->id == $field_id) )
+											<div class="glyphicon glyphicon-ok-sign ufields__sign"></div>
+										@endif
 									</div>
 								</div>
 							</div>

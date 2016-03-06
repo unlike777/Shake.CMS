@@ -30,6 +30,11 @@ $(document).ready(function() {
 					alert(data.data);
 				} else {
 					$('#ufields').replaceWith(data.data);
+					$('.ufields__sign').fadeIn(function() {
+						setTimeout(function() {
+							$('.ufields__sign').fadeOut();
+						}, 1200);
+					});
 				}
 				
 			},
@@ -44,16 +49,18 @@ $(document).ready(function() {
 			$item = $this.parents('.ufields__item:first'),
 			id = $item.attr('data-id');
 		
-		if (id > 0) {
-			$.get('/admin/'+my.getUrl(1)+'/field_delete/'+id, function(data) {
-				if (data.error > 0) {
-					alert(data.data);
-				} else {
-					$('#ufields').replaceWith(data.data);
-				}
-			});
-		} else {
-			$item.remove();
+		if (confirm('Вы точно хотите удалить поле?')) {
+			if (id > 0) {
+				$.get('/admin/'+my.getUrl(1)+'/field_delete/'+id, function(data) {
+					if (data.error > 0) {
+						alert(data.data);
+					} else {
+						$('#ufields').replaceWith(data.data);
+					}
+				});
+			} else {
+				$item.remove();
+			}
 		}
 		
 	});
