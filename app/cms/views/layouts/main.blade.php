@@ -46,12 +46,12 @@
 
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="/">Shake.CMS</a>
+			<a class="navbar-brand" href="https://github.com/unlike777/Shake.CMS" target="_blank">Shake.CMS</a>
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li>
-					<a href="/">перейти на сайт</a>
+					<a href="/">{Site_name} &mdash; перейти на сайт</a>
 				</li>
 			</ul>
 			
