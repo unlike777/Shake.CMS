@@ -6,7 +6,7 @@
 	
 	@foreach($fields as $fname => $field)
 		
-		@if ($field['type'] == 'text')
+		@if ($field['type'] == 'text' || $field['type'] == 'not_editable')
 			
 			<div class="col-xs-2">
 				<div class="form-group">
