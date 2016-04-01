@@ -13,6 +13,8 @@ class ShakeTable {
 	
 	private $filter_fields = array(); 	//поля участвующие в фильтре
 
+	private $def_sort = array(); //сортировка по умолчанию  array('param', 'trend')
+
 	/**
 	 * конструктор
 	 * @param $data
@@ -42,6 +44,15 @@ class ShakeTable {
 		$this->module = $name;
 		
 		return $this;
+	}
+
+	/**
+	 * Устанавливает сортировку по умолчанию
+	 * @param $param
+	 * @param string $trend
+	 */
+	public function set_def_sort($param, $trend = 'asc') {
+		$this->def_sort = array($param, $trend);
 	}
 
 	/**
@@ -310,6 +321,9 @@ class ShakeTable {
 		if (Input::has('sort_param')) {
 			Session::set($ses.'.sort_param', Input::get('sort_param'));
 			Session::set($ses.'.sort_trend', Input::get('sort_trend'));
+		} else if (!empty($this->def_sort)) {
+			Session::set($ses.'.sort_param', $this->def_sort[0]);
+			Session::set($ses.'.sort_trend', $this->def_sort[1]);
 		}
 		
 		if (Session::has($ses.'.sort_param')) {
