@@ -37,6 +37,11 @@
 		@elseif ($field['type'] == 'select')
 		
 			<?
+				if (!is_array($field['values'])) {
+					eval('$tmp = '.$field['values']);
+					$field['values'] = $tmp;
+				}
+				
 				foreach ($field['values'] as $val) {
 					if ($val !== '') {
 						$field['values'] = array('' => '') + $field['values'];
