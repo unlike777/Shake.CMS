@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Laravel PHP Framework</title>
+	<title>Shake.CMS — Login</title>
 
 	<link type="text/css" rel="stylesheet" href="{{ uncache('cms/bootstrap/css/bootstrap.css') }}">
 	<link type="text/css" rel="stylesheet" href="{{ uncache('cms/bootstrap/css/bootstrap-theme.css') }}">
