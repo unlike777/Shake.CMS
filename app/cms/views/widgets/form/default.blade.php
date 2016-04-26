@@ -81,11 +81,12 @@
 								{{ Form::label($fname, $field['title']) }} <br>
 								
 								<?
+								$mime = mime_content_type(public_path().$item->{$fname});
+									
 								$img_check = false;
-								try {
-									Image::make(public_path().$item->{$fname});
+								if(substr($mime, 0, 5) == 'image') {
 									$img_check = true;
-								} catch (Exception $e) {}
+								}
 								?>
 
 								@if ( $img_check )
