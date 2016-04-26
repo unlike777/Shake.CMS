@@ -30,6 +30,10 @@ class Page extends ShakeModel {
 			'type' => 'ckeditor',
 			'title' => 'Содержание',
 		),
+		'link' => array(
+			'type' => 'text',
+			'title' => 'Ссылка',
+		),
 		'file' => array(
 			'type' => 'file',
 			'title' => 'Файл',
@@ -42,10 +46,6 @@ class Page extends ShakeModel {
 				'home'    => 'Домашний',
 				'second'  => 'Второстепенный',
 			),
-		),
-		'link' => array(
-			'type' => 'text',
-			'title' => 'Ссылка',
 		),
 	);
 	
