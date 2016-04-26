@@ -2,7 +2,7 @@
 
 class Page extends ShakeModel {
 	
-	protected $fillable = array('active', 'title', 'content', 'file', 'slug', 'template', 'is_home');
+	protected $fillable = array('active', 'title', 'content', 'file', 'slug', 'template', 'is_home', 'link');
 
 	protected $attributes = array(
 		'page_id' => 0,
@@ -42,6 +42,10 @@ class Page extends ShakeModel {
 				'home'    => 'Домашний',
 				'second'  => 'Второстепенный',
 			),
+		),
+		'link' => array(
+			'type' => 'text',
+			'title' => 'Ссылка',
 		),
 	);
 	
@@ -106,6 +110,10 @@ class Page extends ShakeModel {
 
 		if ($this->is_home) {
 			return '/';
+		}
+		
+		if (trim($this->link)) {
+			return $this->link;
 		}
 
 		return '/pages/'.$this->slug;

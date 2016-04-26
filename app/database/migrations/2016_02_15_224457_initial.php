@@ -39,6 +39,7 @@ class Initial extends Migration {
 			$table->increments('id');
 			$table->boolean('active');
 			$table->string('slug')->index();
+			$table->string('link');
 			$table->string('title');
 			$table->text('content');
 			$table->string('template');
