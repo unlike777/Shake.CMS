@@ -22,7 +22,14 @@
 			<i class="glyphicon glyphicon-eye-close eye_btn"></i>
 		@endif
 		
-		<a href="{{ route('pagesEditAdmin', array($item->id)) }}"> {{ $item->title }} </a>
+		@if (count($info))
+			<a href="{{ route('pagesEditAdmin', array($item->id)) }}"> {{ $item->title }}</a><span>, {{ implode(', ', $info) }}</span>
+		@else
+			<a href="{{ route('pagesEditAdmin', array($item->id)) }}"> {{ $item->title }} </a>
+		@endif
+		
+		
+		
 		
 		<div class="dd-right">
 			{{ link_to_route('pagesEditAdmin', '', array('id' => $item->id), array('class' => 'glyphicon glyphicon-pencil'))  }}

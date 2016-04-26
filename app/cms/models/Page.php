@@ -155,7 +155,18 @@ class Page extends ShakeModel {
 	 */
 	public function oneLine() {
 		if ( $this->exists() ) {
-			return View::make('cms::pages._one_line')->with('item', $this)->render();
+			
+			$info = array();
+			
+			if ($this->is_home) {
+				$info[] = 'домашняя';
+			}
+			
+			if (trim($this->link)) {
+				$info[] = 'ссылка: '.$this->link;
+			}
+			
+			return View::make('cms::pages._one_line', array('item' => $this, 'info' => $info))->render();
 		}
 		return '';
 	}
