@@ -12,6 +12,8 @@
 
 class Resizer {
 	
+	protected static $max_resolution = 2000; //максимальное разрешение (иначе нехватка памяти)
+	
 	protected static $img = '';
 	
 	public function __construct($img = '') {
@@ -129,6 +131,12 @@ class Resizer {
 		$resize_file_name = $dir.'/'.$pref.substr(strrchr(self::$img, "/"), 1);
 
 		if (!file_exists($this->public_path() . $resize_file_name)) {
+			
+			//сечем картинки с высоким разрешением
+			$info = getimagesize($this->full_path());
+			if ( ($info[0] > self::$max_resolution) || ($info[1] > self::$max_resolution) ) {
+				return self::$img;
+			}
 			
 			$img = Image::make($this->full_path());
 			
