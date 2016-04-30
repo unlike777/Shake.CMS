@@ -43,6 +43,6 @@ Route::group(array('prefix'=>'admin', 'before' => 'admin'), function()
 		Route::any($module.'/field_delete/{id}', array('as'=>$module.'UploadAdmin', 'uses'=>ucfirst($module).'AdminController@field_delete'));
 	}
 	
-	Route::any('/pages/create/{parent_id?}', array('as' => 'pagesCreateAdmin', 'uses' => 'pagesAdminController@create'));
+	Route::any('/pages/create/{parent_id?}', array('as' => 'pagesCreateAdmin', 'uses' => 'PagesAdminController@create'));
 	
 });
