@@ -54,7 +54,11 @@ Log::useDailyFiles(storage_path().'/logs/laravel.log', 7);
 
 App::error(function(Exception $exception, $code)
 {
-	Log::error($exception);
+	Log::error($exception, array(
+		'method' => Request::method(),
+		'path' => Request::fullUrl(),
+		'headers' => Request::header(),
+	));
 	
 	if (!Config::get('app.debug')) {
 		return Response::view('errors.default', array('code' => $code), $code);
