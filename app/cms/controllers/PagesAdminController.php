@@ -57,5 +57,10 @@ class PagesAdminController extends AdminController {
 		return Redirect::route($this->getModuleName().'DefaultAdmin')
 			->with('message', array('title' => 'Ошибка', 'text' => 'Страница не найдена'));
 	}
+	
+	public function create($parent_id = 0) {
+		$this->model->page_id = $parent_id;
+		return parent::create();
+	}
 
 }

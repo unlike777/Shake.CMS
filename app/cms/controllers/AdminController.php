@@ -197,7 +197,7 @@ class AdminController extends BaseController {
 		 * @var $obj Eloquent|Page|User|ShakeModel
 		 */
 
-		$obj = new $this->model;
+		$obj = $this->model;
 
 		if (!empty($_POST)) {
 
