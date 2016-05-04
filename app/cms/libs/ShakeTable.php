@@ -287,8 +287,7 @@ class ShakeTable {
 
 					if (!empty($val)) {
 						//если поле булево, слегка меняем значение 
-						$tmp = $this->model->getFilterFields();
-						if ($tmp['filter['.$key.']']['type'] == 'bool') {
+						if ($this->filter_fields['filter['.$key.']']['type'] == 'bool') {
 							if ($val == 2) {
 								$val = 0;
 							}
@@ -309,9 +308,23 @@ class ShakeTable {
 		if (Session::has($ses)) {
 			foreach (Session::get($ses) as $key => $val) {
 				$this->filter_fields['filter['.$key.']']['value'] = $val;
-				$this->data = $this->data->where($key, 'LIKE', '%'.$val.'%');
+				
+				$cur_field = $this->filter_fields['filter['.$key.']'];
+				
+				$strict = false;
+				if (in_array($cur_field['type'], array('select', 'bool'))) {
+					$strict = true;
+				} else if (isset($cur_field['strict']) && $cur_field['strict']) {
+					$strict = true;
+				}
+				
+				if ($strict) {
+					$this->data = $this->data->where($key, '=', $val);
+				} else {
+					$this->data = $this->data->where($key, 'LIKE', '%'.$val.'%');
+				}
+				
 			}
-			
 		}
 	}
 	
