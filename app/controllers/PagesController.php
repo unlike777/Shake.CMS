@@ -15,6 +15,12 @@ class PagesController extends BaseController {
 		
 		SEO::set($item);
 		Menu::add($item);
+
+		$parent = $item;
+
+		while ($parent = $parent->parent){
+			Menu::add($parent);
+		}
 		
 		$templ = empty($item->template) ? 'default' : $item->template;
 		
