@@ -11,7 +11,7 @@ class PagesController extends BaseController {
 	}
 	
 	public function pages($slug) {
-		$item = Page::where('slug', '=', $slug)->firstOrFail();
+		$item = Page::where('slug', '=', $slug)->where('link', '=', '')->firstOrFail();
 		
 		SEO::set($item);
 		Menu::add($item);
