@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 View::addNamespace('cms', app_path('cms/views'));
 
 /*
@@ -60,7 +62,13 @@ App::error(function(Exception $exception, $code)
 		'headers' => Request::header(),
 	));
 	
-	if (!Config::get('app.debug')) {
+	if (!Config::get('app.debug'))
+	{
+		if ($exception instanceof ModelNotFoundException)
+		{
+			$code = 404;
+		}
+		
 		return Response::view('errors.default', array('code' => $code), $code);
 	}
 });
