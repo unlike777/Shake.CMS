@@ -135,7 +135,7 @@ class Resizer {
 			//сечем картинки с высоким разрешением
 			$info = getimagesize($this->full_path());
 			if ( ($info[0] > self::$max_resolution) || ($info[1] > self::$max_resolution) ) {
-				return self::$img;
+				return 'resize_error?big_resolution';
 			}
 			
 			$img = Image::make($this->full_path());
