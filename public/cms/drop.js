@@ -2,7 +2,9 @@ $(document).ready(function() {
 
 	function getExtension(a) {
 		a = a.split('.');
-		return a[a.length-1];
+		a = a[a.length-1];
+		a = a.toLowerCase();
+		return a;
 	}
 
 	var ext_arr = ['png', 'jpg', 'jpeg', 'bmp', 'rar', 'tar', 'zip', 'gzip', 'pdf', 'mp3', 'doc', 'docx', 'xls', 'xslx'],
