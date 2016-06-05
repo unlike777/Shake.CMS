@@ -16,8 +16,9 @@ return array(
     'settings' => array(
         'default' => array(
 			'HTML.Doctype'             => 'HTML 4.01 Transitional',
-			'HTML.Allowed'             => 'div,b,strong,i,em,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src],iframe[frameborder|marginheight|marginwidth|scrolling|src|height|width]',
+			'HTML.Allowed'             => 'div,b,strong,i,em,a[href|title|target],ul,ol,li,p[style],br,span[style],img[width|height|alt|src],iframe[frameborder|marginheight|marginwidth|scrolling|src|height|width]',
 			'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
+			'Attr.AllowedFrameTargets' => '_blank',
 			'AutoFormat.AutoParagraph' => true,
 			'AutoFormat.RemoveEmpty'   => true,
 			"HTML.SafeIframe" 		   => true,
