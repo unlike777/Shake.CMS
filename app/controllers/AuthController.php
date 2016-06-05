@@ -67,7 +67,7 @@ class AuthController extends BaseController
         return Redirect::back();
     }
     
-    public function register()
+    public function register($soc = NULL)
     {
         
         if (!empty($_POST))
@@ -131,7 +131,7 @@ class AuthController extends BaseController
             }
         }
         
-        return View::make('users.register');
+        return View::make('users.register', array('soc' => $soc));
     }
     
     public function disconnect($provider)

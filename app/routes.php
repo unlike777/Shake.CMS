@@ -30,7 +30,7 @@ Route::controller('password', 'RemindersController');
 
 Route::any('/login', array('as' => 'login', 'uses' => 'AuthController@login'));
 Route::any('/logout', array('as' => 'logout', 'uses' => 'AuthController@logout'));
-Route::any('/register', array('as' => 'register', 'uses' => 'AuthController@register'));
+Route::any('/register/{soc?}', array('as' => 'register', 'uses' => 'AuthController@register'));
 Route::any('/auth/soc/{provider}', array('as' => 'auth.soc', 'uses' => 'AuthController@soc'));
 
 Route::get('/test', 'TestController@def');
