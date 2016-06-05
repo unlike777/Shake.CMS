@@ -61,9 +61,13 @@
 						{{ Form::textarea($fname, null, array('class' => 'form-control')) }}
 					</div>
 				</div>
-				
+
 				<script type="text/javascript">
-					var ckeditor = CKEDITOR.replace('{{$fname}}');
+					var ckeditor = CKEDITOR.replace('{{$fname}}', {
+						autoGrow_maxHeight: 800,
+						autoGrow_minHeight: 500,
+						height: 500
+					});
 				</script>
 				
 			@elseif ($field['type'] == 'file')
