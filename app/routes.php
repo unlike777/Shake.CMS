@@ -23,15 +23,15 @@ Blade::extend(function($value) {
 Route::group(array('before' => 'auth'), function()
 {
 	Route::any('/users/edit', array('as' => 'users.edit', 'uses' => 'UsersController@edit'));
-	Route::any('/users/soc/disconnect/{provider}', array('as' => 'users.soc.disconnect', 'uses' => 'UsersController@disconnect'));
+	Route::any('/auth/soc/disconnect/{provider}', array('as' => 'auth.soc.disconnect', 'uses' => 'AuthController@disconnect'));
 });
 
 Route::controller('password', 'RemindersController');
 
-Route::any('/login', array('as' => 'login', 'uses' => 'UsersController@login'));
-Route::any('/logout', array('as' => 'logout', 'uses' => 'UsersController@logout'));
-Route::any('/register', array('as' => 'register', 'uses' => 'UsersController@register'));
-Route::any('/users/soc/{provider}', array('as' => 'users.soc', 'uses' => 'UsersController@soc'));
+Route::any('/login', array('as' => 'login', 'uses' => 'AuthController@login'));
+Route::any('/logout', array('as' => 'logout', 'uses' => 'AuthController@logout'));
+Route::any('/register', array('as' => 'register', 'uses' => 'AuthController@register'));
+Route::any('/auth/soc/{provider}', array('as' => 'auth.soc', 'uses' => 'AuthController@soc'));
 
 Route::get('/test', 'TestController@def');
 Route::get('/', 'PagesController@def');
