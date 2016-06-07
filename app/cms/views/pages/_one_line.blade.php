@@ -32,10 +32,10 @@
 		
 		
 		<div class="dd-right">
-			{{ link_to_route('pagesCreateAdmin', '', array('parent_id' => $item->id), array('class' => 'glyphicon glyphicon-plus'))  }}
-			{{ link_to_route('pagesEditAdmin', '', array('id' => $item->id), array('class' => 'glyphicon glyphicon-pencil'))  }}
-			{{ link_to($item->url(), '', array('class' => 'glyphicon glyphicon-share', 'target' => '_blank')) }}
-			{{ link_to_route('pagesDeleteAdmin', '', array('id' => $item->id), array('class' => 'glyphicon glyphicon-trash table__row_delete'))  }}
+			{{ link_to_route('pagesCreateAdmin', '', array('parent_id' => $item->id), array('class' => 'glyphicon glyphicon-plus', 'title' => 'Добавить в этот раздел'))  }}
+			{{ link_to_route('pagesEditAdmin', '', array('id' => $item->id), array('class' => 'glyphicon glyphicon-pencil', 'title' => 'Редактировать'))  }}
+			{{ link_to($item->url(), '', array('class' => 'glyphicon glyphicon-share', 'target' => '_blank', 'title' => 'Посмотреть на сайте')) }}
+			{{ link_to_route('pagesDeleteAdmin', '', array('id' => $item->id), array('class' => 'glyphicon glyphicon-trash table__row_delete', 'title' => 'Удалить'))  }}
 		</div>
 	</div>
 
