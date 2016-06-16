@@ -10,8 +10,6 @@ class AuthController extends BaseController
          * @var $validation \Illuminate\Validation\Validator
          */
         
-        session_start();
-        
         if (!empty($_POST))
         {
             $data = Input::only(array('email', 'password'));
@@ -27,12 +25,6 @@ class AuthController extends BaseController
             
             if (Auth::attempt($data, Input::has('remember_me')))
             {
-                $user = Auth::getUser();
-                if ($user->group == 1)
-                {
-                    $_SESSION['is_admin'] = 1;
-                }
-                
                 if (Input::has('back_url'))
                 {
                     return Redirect::to(Input::get('back_url', '/'));

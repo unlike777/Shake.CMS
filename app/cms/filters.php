@@ -30,6 +30,11 @@ Route::filter('admin', function()
 		if ($user->group != 1) {
 			return Response::make('Permission denied', 401);
 		}
+		else
+		{
+			session_start();
+			$_SESSION['is_admin'] = 1;
+		}
 		
 	}
 });
