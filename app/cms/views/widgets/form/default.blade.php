@@ -22,7 +22,11 @@
 				</div>
 				
 			@elseif ($field['type'] == 'date')
-							
+
+				<?
+				$format = isset($field['format']) ? $field['format'] : 'YYYY-MM-DD HH:mm:ss';
+				?>
+				
 				<div class="col-xs-6">
 					<div class="form-group">
 						{{ Form::label($fname, $field['title']) }}
@@ -38,7 +42,7 @@
 						$(function () {
 							$('#datetimepicker_{{ $fname }}').datetimepicker({
 								locale: 'ru',
-								format: 'YYYY-MM-DD HH:mm:ss'
+								format: '{{ $format }}'
 							});
 						});
 					</script>
