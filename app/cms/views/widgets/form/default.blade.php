@@ -69,8 +69,8 @@
 				<script type="text/javascript">
 					var ckeditor = CKEDITOR.replace('{{$fname}}', {
 						autoGrow_maxHeight: 800,
-						autoGrow_minHeight: 500,
-						height: 500
+						autoGrow_minHeight: 350,
+						height: 350
 					});
 				</script>
 				
