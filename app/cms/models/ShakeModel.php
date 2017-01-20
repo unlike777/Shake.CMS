@@ -166,7 +166,7 @@ class ShakeModel extends Eloquent {
      */
 	public function unique($alias)
     {
-        $field = $this->uniqueFields()->where('field', '=', $alias);
+        $field = $this->uniqueFields()->where('field', '=', $alias)->first();
         if ($field)
         {
             return $field->is_file ? $field->file : $field->text;
