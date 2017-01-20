@@ -158,6 +158,22 @@ class ShakeModel extends Eloquent {
 	public function uniqueFields() {
 		return $this->MorphMany('Field', 'parent');
 	}
+    
+    /**
+     * Выведет значение конкретного уникального поля, если такое есть.
+     * @param $alias
+     * @return string
+     */
+	public function unique($alias)
+    {
+        $field = $this->uniqueFields()->where('field', '=', $alias);
+        if ($field)
+        {
+            return $field->is_file ? $field->file : $field->text;
+        }
+        
+        return '';
+    }
 	
 	/**
 	 * Возвратит сео текст для данного объекта
